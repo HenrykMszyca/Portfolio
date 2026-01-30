@@ -206,7 +206,7 @@
             border-left: 5px solid var(--secondary);
         }
         
-        /* Skills Section - POPRAWIENIE: NORMALNE LITERY */
+        /* Skills Section */
         .skills-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -249,8 +249,8 @@
             color: var(--dark);
             margin: 0;
             font-weight: 600;
-            text-transform: none; /* USUNIĘTE CAPS LOCK */
-            letter-spacing: normal; /* NORMALNA ODLEGŁOŚĆ MIĘDZY LITERAMI */
+            text-transform: none;
+            letter-spacing: normal;
         }
         
         .skill-list {
@@ -293,39 +293,11 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
             display: block;
-            opacity: 1;
-            transform: translateY(0);
-            height: auto;
-            max-height: 500px;
-            overflow: hidden;
-        }
-        
-        .video-card.hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            max-height: 0;
-            margin-top: 0;
-            margin-bottom: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .video-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-            max-height: 500px;
-            margin-top: initial;
-            margin-bottom: initial;
-            padding-top: initial;
-            padding-bottom: initial;
-            pointer-events: auto;
         }
         
         .video-card:hover {
@@ -402,7 +374,7 @@
             line-height: 1.5;
         }
         
-        /* Video Modal - POPRAWIONE */
+        /* Video Modal */
         .video-modal {
             display: none;
             position: fixed;
@@ -579,42 +551,6 @@
             color: white;
         }
         
-        /* Show More Button - POPRAWIENIE ODSTĘPU */
-        .show-more-container {
-            text-align: center;
-            margin-top: 20px; /* ZMNIEJSZONY Z 30px NA 20px */
-        }
-        
-        .show-more-btn {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .show-more-btn:hover {
-            background-color: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
-        }
-        
-        .show-more-btn i {
-            transition: transform 0.3s ease;
-        }
-        
-        .show-more-btn.expanded i {
-            transform: rotate(180deg);
-        }
-        
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 {
@@ -662,10 +598,6 @@
             .skills-container {
                 grid-template-columns: 1fr;
                 gap: 20px;
-            }
-            
-            .show-more-container {
-                margin-top: 20px; /* ZACHOWANY MNIEJSZY ODSTĘP NA MOBILNYCH */
             }
             
             /* Poprawki dla modala na telefonie */
@@ -722,10 +654,6 @@
             .skill-list li {
                 font-size: 1rem;
             }
-            
-            .show-more-container {
-                margin-top: 15px; /* JESZCZE MNIEJSZY ODSTĘP NA BARDZO MAŁYCH EKRANACH */
-            }
         }
         
         .logo-name {
@@ -777,7 +705,7 @@
         </div>
     </section>
 
-    <!-- Sekcja Umiejętności - POPRAWIENIE: NORMALNE LITERY -->
+    <!-- Sekcja Umiejętności -->
     <section id="skills" class="skills">
         <div class="container">
             <h2 class="section-title">Moje <span>umiejętności</span></h2>
@@ -801,6 +729,7 @@
                     </div>
                     <ul class="skill-list">
                         <li>Jasny przekaz bez "lania wody"</li>
+                        <li>Strategia contentu</li>
                         <li>Dostosowanie do platformy</li>
                     </ul>
                 </div>
@@ -820,7 +749,7 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
+    <!-- Portfolio Section - WSZYSTKIE 9 KAFELKÓW OD RAZU -->
     <section id="portfolio" class="portfolio">
         <div class="container">
             <h2 class="section-title">Moje <span>prace</span></h2>
@@ -878,7 +807,7 @@
                 </a>
                 
                 <!-- Video 4 - VFX (oryginalnie kafelek 5) -->
-                <div class="video-card hidden" data-video-index="4">
+                <div class="video-card" data-video-index="4">
                     <div class="thumbnail-container">
                         <img src="VFX.jpg" alt="Przykład VFX: vulcano text" class="thumbnail">
                         <div class="play-overlay">
@@ -894,7 +823,7 @@
                 </div>
                 
                 <!-- Video 5 - BMX (oryginalnie kafelek 1) -->
-                <div class="video-card hidden" data-video-index="3">
+                <div class="video-card" data-video-index="3">
                     <div class="thumbnail-container">
                         <img src="bmx.jpg" alt="Relacja z contestu BMX freestyle" class="thumbnail">
                         <div class="play-overlay">
@@ -910,7 +839,7 @@
                 </div>
                 
                 <!-- Video 6 - Beauty salon (oryginalnie kafelek 4) -->
-                <div class="video-card hidden" data-video-index="0">
+                <div class="video-card" data-video-index="0">
                     <div class="thumbnail-container">
                         <img src="wodor1.jpg" alt="Wizyta w salonie beauty" class="thumbnail">
                         <div class="play-overlay">
@@ -926,7 +855,7 @@
                 </div>
                 
                 <!-- Video 7 - Zdrowotka -->
-                <div class="video-card hidden" data-video-index="6">
+                <div class="video-card" data-video-index="6">
                     <div class="thumbnail-container">
                         <img src="zdrowotka.png" alt="Sklep zielarski w twojej okolicy!" class="thumbnail">
                         <div class="play-overlay">
@@ -942,7 +871,7 @@
                 </div>
                 
                 <!-- Video 8 - Agrest -->
-                <a href="https://www.instagram.com/reel/DPWkN0fDitU/" target="_blank" class="video-card hidden" onclick="event.stopPropagation();">
+                <a href="https://www.instagram.com/reel/DPWkN0fDitU/" target="_blank" class="video-card" onclick="event.stopPropagation();">
                     <div class="thumbnail-container">
                         <img src="agrest.png" alt="Ale styl!" class="thumbnail">
                         <div class="play-overlay">
@@ -959,7 +888,7 @@
                 </a>
                 
                 <!-- Video 9 - My Perfect -->
-                <div class="video-card hidden" data-video-index="8">
+                <div class="video-card" data-video-index="8">
                     <div class="thumbnail-container">
                         <img src="myperfect.png" alt="Z wodorem po Polsce..." class="thumbnail">
                         <div class="play-overlay">
@@ -973,14 +902,6 @@
                         <p>Nowoczesna technologia oczyszczania wodorem, która odmładza skórę rozprzestrzenia się po naszym kraju w zastraszającym tempie!</p>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Show More Button -->
-            <div class="show-more-container">
-                <button class="show-more-btn" id="showMoreBtn">
-                    <span>Pokaż więcej</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
             </div>
             
             <!-- Video Modal -->
@@ -1071,77 +992,6 @@
         const videoContainer = document.getElementById('videoContainer');
         const closeModalBtn = document.querySelector('.close-modal');
         const body = document.body;
-        const showMoreBtn = document.getElementById('showMoreBtn');
-        const videoCards = document.querySelectorAll('.video-card');
-        let isExpanded = false;
-        let animationInProgress = false;
-
-        // Funkcja do pokazywania/ukrywania kafelków
-        function toggleVideoCards() {
-            if (animationInProgress) return;
-            animationInProgress = true;
-            
-            const hiddenCards = document.querySelectorAll('.video-card.hidden');
-            const visibleCards = document.querySelectorAll('.video-card.visible');
-            
-            if (!isExpanded) {
-                // POKAŻ WIĘCEJ - animacja kaskadowa w dół
-                showMoreBtn.innerHTML = '<span>Pokaż mniej</span><i class="fas fa-chevron-up"></i>';
-                showMoreBtn.classList.add('expanded');
-                isExpanded = true;
-                
-                // Animate showing cards with delay
-                hiddenCards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.remove('hidden');
-                        setTimeout(() => {
-                            card.classList.add('visible');
-                        }, 10);
-                    }, index * 150); // Kaskadowe pokazywanie
-                });
-                
-                // Scroll to newly shown cards after animation
-                setTimeout(() => {
-                    hiddenCards[0].scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest',
-                        inline: 'nearest'
-                    });
-                    animationInProgress = false;
-                }, hiddenCards.length * 150 + 300);
-                
-            } else {
-                // POKAŻ MNIEJ - animacja kaskadowa w górę
-                showMoreBtn.innerHTML = '<span>Pokaż więcej</span><i class="fas fa-chevron-down"></i>';
-                showMoreBtn.classList.remove('expanded');
-                isExpanded = false;
-                
-                // Animate hiding cards in reverse order
-                const cardsToHide = Array.from(document.querySelectorAll('.video-card.visible')).slice(3);
-                const totalCards = cardsToHide.length;
-                
-                cardsToHide.reverse().forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.remove('visible');
-                        setTimeout(() => {
-                            card.classList.add('hidden');
-                        }, 300); // Opóźnienie dla płynnego przejścia
-                    }, index * 100); // Kaskadowe ukrywanie od dołu
-                });
-                
-                // Scroll back to portfolio section
-                setTimeout(() => {
-                    document.getElementById('portfolio').scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'start'
-                    });
-                    animationInProgress = false;
-                }, totalCards * 100 + 400);
-            }
-        }
-
-        // Obsługa przycisku "Pokaż więcej"
-        showMoreBtn.addEventListener('click', toggleVideoCards);
 
         // Otwieranie modala po kliknięciu w kafelek (tylko te z data-video-index)
         document.querySelectorAll('.video-card[data-video-index]').forEach(card => {
@@ -1227,27 +1077,6 @@
                 });
             }
         });
-        
-        // Inicjalizacja - ukryj wszystkie kafelki poza pierwszymi trzema
-        function initializeVideoCards() {
-            // Zachowaj pierwsze 3 kafelki widoczne
-            const firstThreeCards = Array.from(videoCards).slice(0, 3);
-            firstThreeCards.forEach(card => {
-                card.classList.remove('hidden');
-                card.classList.add('visible');
-            });
-            
-            // Ukryj resztę kafelków
-            const remainingCards = Array.from(videoCards).slice(3);
-            remainingCards.forEach(card => {
-                card.classList.add('hidden');
-                card.classList.remove('visible');
-            });
-        }
-        
-        // Uruchom inicjalizację po załadowaniu strony
-        window.addEventListener('DOMContentLoaded', initializeVideoCards);
     </script>
 </body>
 </html>
-
