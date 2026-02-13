@@ -8,16 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
+        /* ========== CSS VARIABLES - Zachowane z instrukcji ========== */
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #f59e0b;
-            --dark: #111827;
-            --light: #f9fafb;
-            --gray: #6b7280;
-            --gray-light: #e5e7eb;
+           --primary: #3b82f6;        /* Jasny niebieski */
+            --primary-dark: #2563eb;    /* Niebieski ciemniejszy */
+            --secondary: #f59e0b;       /* Amber (bez zmiany) */
+            --dark: #0f172a;            /* Granatowy czarny */
+            --light: #f8fafc;           /* Bardzo jasny szary */
+            --gray: #64748b;            /* Slate gray */
+            --gray-light: #e2e8f0;      /* Slate light */
         }
         
+        /* ========== BASIC RESET ========== */
         * {
             margin: 0;
             padding: 0;
@@ -36,15 +38,20 @@
             overflow: hidden;
         }
         
+        body.menu-open {
+            overflow: hidden;
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
         
-        /* Header & Navigation */
+        /* ========== HEADER & NAVIGATION (z hamburger menu) ========== */
         header {
             background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             position: fixed;
             width: 100%;
@@ -64,10 +71,7 @@
             font-size: 1.8rem;
             color: var(--dark);
             text-decoration: none;
-        }
-        
-        .logo span {
-            color: var(--dark);
+            z-index: 1001;
         }
         
         .nav-links {
@@ -80,13 +84,84 @@
             color: var(--dark);
             font-weight: 500;
             transition: color 0.3s;
+            position: relative;
         }
         
         .nav-links a:hover {
             color: var(--primary);
         }
         
-        /* Hero Section */
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark);
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background-color: white;
+            z-index: 999;
+            transition: right 0.4s ease;
+            padding-top: 100px;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu nav {
+            display: flex;
+            flex-direction: column;
+            padding: 0 20px;
+        }
+        
+        .mobile-menu nav a {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray-light);
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu nav a:hover {
+            color: var(--primary);
+        }
+        
+        /* ========== HERO SECTION ========== */
         .hero {
             padding: 160px 0 100px;
             background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
@@ -152,7 +227,7 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: all 0.3s;
             border: none;
             cursor: pointer;
         }
@@ -163,7 +238,7 @@
             box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
         }
         
-        /* Section Styling */
+        /* ========== SECTION STYLING ========== */
         section {
             padding: 80px 0;
         }
@@ -180,7 +255,7 @@
             color: var(--primary);
         }
         
-        /* About Section */
+        /* ========== ABOUT SECTION (poprawiona - jako montażysta) ========== */
         .about-content {
             display: flex;
             align-items: center;
@@ -206,7 +281,60 @@
             border-left: 5px solid var(--secondary);
         }
         
-        /* Skills Section */
+        /* ========== NOWA SEKCJA: PROCES WSPÓŁPRACY ========== */
+        .process {
+            background-color: white;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .process-step {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .process-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .process-step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .process-step p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* ========== SKILLS SECTION (poprawiona - bez "Scenariuszy") ========== */
         .skills-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -249,8 +377,6 @@
             color: var(--dark);
             margin: 0;
             font-weight: 600;
-            text-transform: none;
-            letter-spacing: normal;
         }
         
         .skill-list {
@@ -277,9 +403,98 @@
             flex-shrink: 0;
         }
         
-        /* Portfolio Section */
+        /* ========== TESTIMONIALS SECTION (NOWA) ========== */
+        .testimonials {
+            background-color: white;
+        }
+        
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .testimonial-quote {
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .testimonial-author-info h4 {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .quote-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            opacity: 0.2;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        /* ========== PORTFOLIO SECTION (z filtrami) ========== */
         .portfolio {
             background-color: #f8fafc;
+        }
+        
+        /* Filtry Portfolio */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 24px;
+            border: 2px solid var(--gray-light);
+            background-color: white;
+            color: var(--dark);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
         }
         
         .videos-container {
@@ -293,11 +508,16 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
             display: block;
+        }
+        
+        /* Klasa do ukrywania elementów przy filtracji */
+        .video-card.hidden {
+            display: none;
         }
         
         .video-card:hover {
@@ -436,7 +656,7 @@
         .video-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            padding-top: 56.25%;
             background-color: #000;
             border-radius: 10px;
             overflow: hidden;
@@ -452,7 +672,81 @@
             border: 0;
         }
         
-        /* Contact Section */
+        /* ========== FAQ SECTION (NOWA - Techniczne) ========== */
+        .faq {
+            background-color: white;
+        }
+        
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: var(--light);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .faq-question {
+            width: 100%;
+            padding: 20px 25px;
+            background-color: white;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            transition: background-color 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--light);
+        }
+        
+        .faq-question i {
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+        
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding: 0 25px;
+        }
+        
+        .faq-answer.active {
+            max-height: 800px;
+            padding: 0 25px 20px;
+            transition: max-height 0.5s ease-in, padding 0.5s ease-in;
+        }
+        
+        .faq-answer p {
+            color: var(--gray);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .faq-answer ul {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        /* ========== CONTACT SECTION ========== */
         .contact-container {
             display: flex;
             gap: 60px;
@@ -525,7 +819,7 @@
             font-weight: bold;
         }
         
-        /* Footer */
+        /* ========== FOOTER ========== */
         footer {
             background-color: var(--dark);
             color: white;
@@ -551,7 +845,7 @@
             color: white;
         }
         
-        /* Responsive Design */
+        /* ========== RESPONSIVE DESIGN ========== */
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 2.8rem;
@@ -566,17 +860,26 @@
             }
             
             .skills-container {
-                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .process-steps {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
         
         @media (max-width: 768px) {
+            /* Mobile Navigation */
             .nav-links {
                 display: none;
             }
             
-            .header-container {
-                justify-content: center;
+            .hamburger {
+                display: flex;
+            }
+            
+            .mobile-menu {
+                display: block;
             }
             
             .logo {
@@ -600,12 +903,27 @@
                 gap: 20px;
             }
             
-            /* Poprawki dla modala na telefonie */
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-filters {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            /* Modal na telefonie */
             .modal-content {
                 width: 95%;
                 max-height: 80vh;
-                top: 50%;
-                transform: translate(-50%, -50%);
             }
             
             .video-wrapper {
@@ -639,10 +957,6 @@
                 background-color: rgba(0, 0, 0, 0.8);
             }
             
-            .skills-container {
-                grid-template-columns: 1fr;
-            }
-            
             .skill-column {
                 padding: 20px;
             }
@@ -655,57 +969,105 @@
                 font-size: 1rem;
             }
         }
-        
-        .logo-name {
-            color: var(--primary);
-        }
-        
-        .logo-surname {
-            color: var(--secondary);
-        }
     </style>
 </head>
 <body>
+    <!-- ========== HEADER z hamburger menu ========== -->
     <header>
         <div class="container header-container">
             <a href="#" class="logo">
-                <span class="logo-name">Henryk</span> <span class="logo-surname">Mszyca</span>
+                Henryk Mszyca
             </a>
+            
+            <!-- Desktop Navigation -->
             <nav class="nav-links">
                 <a href="#about">O mnie</a>
+                <a href="#process">Proces</a>
                 <a href="#skills">Umiejętności</a>
                 <a href="#portfolio">Portfolio</a>
+                <a href="#faq">FAQ</a>
                 <a href="#contact">Kontakt</a>
             </nav>
+            
+            <!-- Hamburger Button -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav>
+            <a href="#about" class="mobile-link">O mnie</a>
+            <a href="#process" class="mobile-link">Proces</a>
+            <a href="#skills" class="mobile-link">Umiejętności</a>
+            <a href="#portfolio" class="mobile-link">Portfolio</a>
+            <a href="#faq" class="mobile-link">FAQ</a>
+            <a href="#contact" class="mobile-link">Kontakt</a>
+        </nav>
+    </div>
 
+    <!-- ========== HERO SECTION ========== -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1>Solidny montaż,<br><span class="title-line-2">zero ściemy</span></h1>
-                <p>Tworzę <b>spójne treści wideo dla social media,</b> bez zbędnych efektów i chwilowych trendów.</p>
-                <a href="#contact" class="cta-button">Zleć montaż filmu</a>
+                <p>Montuję materiały wideo dla social media – <b>od surowych nagrań do gotowego filmu.</b> Bez zbędnych efektów, bez poprawek.</p>
+                <a href="#contact" class="cta-button">Zleć montaż</a>
             </div>
         </div>
     </section>
 
+    <!-- ========== ABOUT SECTION (poprawiona) ========== -->
     <section id="about">
         <div class="container">
-            <h2 class="section-title" style="color: #000000 !important;">O mnie</h2>
+            <h2 class="section-title">O mnie</h2>
             <div class="about-content">
-                <div class="about-text">
-                    <p>Montażem wideo zajmuję się <b>od 3 lat,</b> a od roku pracuję komercyjnie z klientami. Skupiam się na jasnym przekazie, spójności materiałów i stylu bez zbędnych efektów i chwilowych trendów.</p>
-                    <p>Moje doświadczenie obejmuje zarówno krótkie formaty (Reels/Shorts), jak i dłuższe materiały wideo, zawsze dostosowane do specyfiki platformy i oczekiwań klientów.</p>
-                    <div class="highlight-box">
-                        <p><strong>Dostarczasz materiał - resztę robię ja.</strong> Oszczędzam Twój czas, a Ty otrzymujesz gotowe materiały do publikacji, bez potrzeby poprawek.</p>
-                    </div>
+                <div class="contact-card" style="flex: 1; max-width: 900px; margin: 0 auto;">
+                    <p style="font-size: 1.1rem; color: var(--gray); margin-bottom: 20px;">Montażem wideo zajmuję się <b>od 3 lat,</b> a od roku pracuję komercyjnie. Skupiam się na solidnym warsztacie – czysty montaż, dobry pacing i storytelling bez zbędnych efektów.</p>
+                    <p style="font-size: 1.1rem; color: var(--gray); margin-bottom: 20px;">Specjalizuję się w krótkich formatach (Reels/Shorts) oraz dłuższych materiałach do 10 minut. Pracuję z materiałem dostarczonym przez klienta – od surowych nagrań do gotowego exportu.</p>
+                    <p style="font-size: 1.1rem; color: var(--gray); margin-bottom: 20px;"><strong>Dostarczasz materiał – resztę robię ja.</strong> Otrzymujesz gotowy plik w formacie pod platformę, bez potrzeby poprawek i zgadywania.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sekcja Umiejętności -->
+    <!-- ========== NOWA SEKCJA: PROCES WSPÓŁPRACY ========== -->
+    <section id="process" class="process">
+        <div class="container">
+            <h2 class="section-title">Jak to <span>działa</span></h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <h3>Brief</h3>
+                    <p>Wysyłasz materiał + wytyczne (długość, format, styl). Im bardziej konkretnie, tym lepiej.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <h3>Montaż</h3>
+                    <p>Dostajesz video w 2-3 dni robocze (Czytaj FAQ).</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <h3>Poprawki</h3>
+                    <p>1-2 rundy poprawek wliczone w cenę. Zazwyczaj nie są potrzebne.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <h3>Final</h3>
+                    <p>Export w formatach odpowiednich do platformy. <b>gotowe do publikacji.</b></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SKILLS SECTION (poprawiona - bez "Scenariuszy") ========== -->
     <section id="skills" class="skills">
         <div class="container">
             <h2 class="section-title">Moje <span>umiejętności</span></h2>
@@ -716,47 +1078,102 @@
                         <h3>Montaż</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>Krótkie formaty (Reels/Shorts)</li>
-                        <li>Dłuższe formy wideo</li>
+                        <li>Krótkie formaty (Reels/Shorts 15-90s)</li>
+                        <li>Dłuższe formy wideo (do 10 min)</li>
                         <li>VFX & korekta barwna/dźwiękowa</li>
+                        <li>Sound design i muzyka</li>
                     </ul>
                 </div>
                 
                 <div class="skill-column">
                     <div class="skill-column-header">
-                        <i class="fas fa-lightbulb"></i>
-                        <h3>Scenariusze</h3>
+                        <i class="fas fa-scissors"></i>
+                        <h3>Struktura montażu</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>Jasny przekaz bez "lania wody"</li>
-                        <li>Dostosowanie do platformy</li>
+                        <li>Storytelling</li>
+                        <li>Dynamika narracji</li>
+                        <li>Optymalizacja pod platformę</li>
+                        <li>Hook w pierwszych 3 sekundach</li>
                     </ul>
                 </div>
                 
                 <div class="skill-column">
                     <div class="skill-column-header">
-                        <i class="fas fa-clock"></i>
-                        <h3>Proces</h3>
+                        <i class="fas fa-cogs"></i>
+                        <h3>Narzędzia</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>Oszczędność Twojego czasu</li>
-                        <li>Gotowość do publikacji</li>
-                        <li>Kompleksowa obsługa</li>
+                        <li>DaVinci Resolve Studio</li>
+                        <li>After Effects</li>
+                        <li>Fusion (VFX)</li>
+                        <li>Fairlight (audio post)</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Section - WSZYSTKIE 9 KAFELKÓW OD RAZU -->
+    <!-- ========== TESTIMONIALS SECTION (NOWA) ========== -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Co mówią <span>klienci</span></h2>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p class="testimonial-quote">"Cześć, w sumie to nie mam uwag, jest bajka!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-info">
+                            <h4>Wiktor S. </h4>
+                            <p>Zdrowotka.pl</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p class="testimonial-quote">"Świetna robota! Czuję, że nadajemy na tych samych falach! Wszystko idealnie, żadnych poprawek"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-info">
+                            <h4>Łukasz P. </h4>
+                            <p>AquaGen Plus Polska</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right quote-icon"></i>
+                    <p class="testimonial-quote">"a animacja na klapki zaje****a, bardzo dobra praca"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-info">
+                            <h4>Antek P.</h4>
+                            <p>Fish Your Kicks</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PORTFOLIO SECTION z filtrami ========== -->
     <section id="portfolio" class="portfolio">
         <div class="container">
             <h2 class="section-title">Moje <span>prace</span></h2>
-            <p style="text-align: center; margin-bottom: 40px; color: var(--gray); max-width: 800px; margin-left: auto; margin-right: auto;">Kliknij w dowolny kafelek, aby obejrzeć film. Wszystkie wideo odtwarzają się bezpośrednio w przeglądarce.</p>
+            <p style="text-align: center; margin-bottom: 40px; color: var(--gray); max-width: 800px; margin-left: auto; margin-right: auto;">
+                Kliknij w kafelek, aby obejrzeć film. Użyj filtrów, aby zobaczyć konkretny typ projektu.
+            </p>
+            
+            <!-- Filtry Portfolio -->
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">Wszystkie</button>
+                <button class="filter-btn" data-filter="shorts">Shorts/Reels</button>
+                <button class="filter-btn" data-filter="long">Long-form</button>
+                <button class="filter-btn" data-filter="vfx">VFX</button>
+            </div>
             
             <div class="videos-container">
-                <!-- Video 1 - Wodor 2 (oryginalnie kafelek 6) -->
-                <div class="video-card" data-video-index="5">
+                <!-- Video 1 - Klapki (Shorts) -->
+                <div class="video-card" data-video-index="5" data-category="shorts">
                     <div class="thumbnail-container">
                         <img src="klapki.png" alt="Klapki sterują umysłem!" class="thumbnail">
                         <div class="play-overlay">
@@ -767,12 +1184,12 @@
                     </div>
                     <div class="video-info">
                         <h3>Klapki sterują umysłem!</h3>
-                        <p><b>Nie jestem autorem scenariusza rolki! </b>Nike Mind 001 – załóż je, a komfort przejmie kontrolę nad Twoim umysłem i krokami!</p>
+                        <p>Nike Mind 001 – założ je, a komfort przejmie kontrolę nad Twoim umysłem i krokami!</p>
                     </div>
                 </div>
                 
-                <!-- Video 2 - Instagram Link -->
-                <a href="https://www.instagram.com/reel/DTqKMh2Ds8G/" target="_blank" class="video-card" onclick="event.stopPropagation();">
+                <!-- Video 2 - Świrowanie (Events + Instagram) -->
+                <a href="https://www.instagram.com/reel/DTqKMh2Ds8G/" target="_blank" class="video-card" data-category="shorts" onclick="event.stopPropagation();">
                     <div class="thumbnail-container">
                         <img src="swiry.jpg" alt="Relacja ze ŚWiRowania" class="thumbnail">
                         <div class="play-overlay">
@@ -783,13 +1200,13 @@
                     </div>
                     <div class="video-info">
                         <h3>Relacja ze ŚWiRowania</h3>
-                        <p>Ślęża w 20 sekund – adrenalinowy przejazd! Dynamiczna relacja z rowerowego spotkania na szczycie Ślęży – emocje i górska przygoda.</p>
+                        <p>Śląża w 20 sekund – adrenalinowy przejazd! Dynamiczna relacja z rowerowego spotkania.</p>
                         <p style="color: var(--primary); font-size: 0.8rem; margin-top: 10px;"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
                     </div>
                 </a>
                 
-                <!-- Video 3 - Instagram Link -->
-                <a href="https://www.instagram.com/p/DM45I4Ruuve/" target="_blank" class="video-card" onclick="event.stopPropagation();">
+                <!-- Video 3 - Projekt rowerowy (Long + Instagram) -->
+                <a href="https://www.instagram.com/p/DM45I4Ruuve/" target="_blank" class="video-card" data-category="shorts" onclick="event.stopPropagation();">
                     <div class="thumbnail-container">
                         <img src="niewyszlo.jpg" alt="Koniec projektu rowerowego" class="thumbnail">
                         <div class="play-overlay">
@@ -800,13 +1217,13 @@
                     </div>
                     <div class="video-info">
                         <h3>Koniec projektu rowerowego</h3>
-                        <p>Dlaczego ten projekt upadł? Zobacz film! Rolka zapraszająca do obejrzenia pełnego filmu – szczera analiza nieudanego projektu.</p>
+                        <p>Dlaczego ten projekt upadł? Rolka zapraszająca do obejrzenia pełnego filmu – szczera analiza.</p>
                         <p style="color: var(--primary); font-size: 0.8rem; margin-top: 10px;"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
                     </div>
                 </a>
                 
-                <!-- Video 4 - VFX (oryginalnie kafelek 5) -->
-                <div class="video-card" data-video-index="4">
+                <!-- Video 4 - VFX (VFX) -->
+                <div class="video-card" data-video-index="4" data-category="vfx">
                     <div class="thumbnail-container">
                         <img src="VFX.jpg" alt="Przykład VFX: vulcano text" class="thumbnail">
                         <div class="play-overlay">
@@ -817,12 +1234,12 @@
                     </div>
                     <div class="video-info">
                         <h3>Przykład VFX: vulcano text</h3>
-                        <p>Magia efektów specjalnych w akcji. Krótka prezentacja umiejętności VFX w DaVinci Fusion – ożywiamy tekst jak lawę!</p>
+                        <p>Krótka prezentacja umiejętności VFX w DaVinci Fusion – ożywiamy tekst jak lawę!</p>
                     </div>
                 </div>
                 
-                <!-- Video 5 - BMX (oryginalnie kafelek 1) -->
-                <div class="video-card" data-video-index="3">
+                <!-- Video 5 - BMX (Long-form) -->
+                <div class="video-card" data-video-index="3" data-category="long">
                     <div class="thumbnail-container">
                         <img src="bmx.jpg" alt="Relacja z contestu BMX freestyle" class="thumbnail">
                         <div class="play-overlay">
@@ -833,12 +1250,12 @@
                     </div>
                     <div class="video-info">
                         <h3>Relacja z contestu BMX freestyle</h3>
-                        <p>BMX Freestyle na Popowicach – emocje do ostatniego triku! Relacja z zawodów w skateparku Zajezdnia – akrobacje i walka o podium.</p>
+                        <p>BMX Freestyle na Popowicach – emocje do ostatniego triku! Relacja z zawodów w skateparku.</p>
                     </div>
                 </div>
                 
-                <!-- Video 6 - Beauty salon (oryginalnie kafelek 4) -->
-                <div class="video-card" data-video-index="0">
+                <!-- Video 6 - Beauty salon (Shorts) -->
+                <div class="video-card" data-video-index="0" data-category="shorts">
                     <div class="thumbnail-container">
                         <img src="wodor1.png" alt="Wizyta w salonie beauty" class="thumbnail">
                         <div class="play-overlay">
@@ -849,12 +1266,12 @@
                     </div>
                     <div class="video-info">
                         <h3>Wizyta w salonie beauty</h3>
-                        <p><b>Nie jestem autorem scenariusza rolki! </b>Ekskluzywna relacja z wizyty w salonie – inspiracje, metamorfozy i profesjonalne zabiegi.</p>
+                        <p>Ekskluzywna relacja z wizyty w salonie – inspiracje, metamorfozy i profesjonalne zabiegi.</p>
                     </div>
                 </div>
                 
-                <!-- Video 7 - Zdrowotka -->
-                <div class="video-card" data-video-index="6">
+                <!-- Video 7 - Zdrowotka (Shorts) -->
+                <div class="video-card" data-video-index="6" data-category="shorts">
                     <div class="thumbnail-container">
                         <img src="zdrowotka.png" alt="Sklep zielarski w twojej okolicy!" class="thumbnail">
                         <div class="play-overlay">
@@ -865,12 +1282,12 @@
                     </div>
                     <div class="video-info">
                         <h3>Sklep zielarski w twojej okolicy!</h3>
-                        <p><b>Nie jestem autorem scenariusza rolki!    </b>To miejsce zaspokoi twoje niedobory witamin i minerałów. Oto sklep w którym zakupisz zioła lecznicze, oraz suplementy.</p>
+                        <p>To miejsce zaspokoi twoje niedobory witamin i minerałów. Sklep z ziołami leczniczymi.</p>
                     </div>
                 </div>
                 
-                <!-- Video 8 - Agrest -->
-                <a href="https://www.instagram.com/reel/DPWkN0fDitU/" target="_blank" class="video-card" onclick="event.stopPropagation();">
+                <!-- Video 8 - Agrest (Events + Instagram) -->
+                <a href="https://www.instagram.com/reel/DPWkN0fDitU/" target="_blank" class="video-card" data-category="shorts" onclick="event.stopPropagation();">
                     <div class="thumbnail-container">
                         <img src="agrest.png" alt="Ale styl!" class="thumbnail">
                         <div class="play-overlay">
@@ -881,15 +1298,15 @@
                     </div>
                     <div class="video-info">
                         <h3>Ale styl!</h3>
-                        <p>Materiał z najlepszymi liniami przejazdów uczestników spotkania rowerowego BMX</p>
+                        <p>Materiał z najlepszymi liniami przejazdów uczestników spotkania rowerowego BMX.</p>
                         <p style="color: var(--primary); font-size: 0.8rem; margin-top: 10px;"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
                     </div>
                 </a>
                 
-                <!-- Video 9 - My Perfect -->
-                <div class="video-card" data-video-index="8">
+                <!-- Video 9 - Wodór 2 (Shorts) -->
+                <div class="video-card" data-video-index="8" data-category="shorts">
                     <div class="thumbnail-container">
-                        <img src="myperfect.png" alt="Z wodorem po Polsce..." class="thumbnail">
+                        <img src="wodor2.jpg" alt="Z wodorem po Polsce..." class="thumbnail">
                         <div class="play-overlay">
                             <div class="play-icon">
                                 <i class="fas fa-play"></i>
@@ -898,7 +1315,7 @@
                     </div>
                     <div class="video-info">
                         <h3>Z wodorem po Polsce...</h3>
-                        <p><b>Nie jestem autorem scenariusza rolki! </b>Technologia oczyszczania wodorem, która odmładza skórę i rozprzestrzenia się po Polsce w zastraszającym tempie!</p>
+                        <p>Nowoczesna technologia oczyszczania wodorem rozprzestrzenia się po kraju!</p>
                     </div>
                 </div>
             </div>
@@ -916,16 +1333,92 @@
             </div>
             
             <div style="text-align: center; margin-top: 50px;">
-                <p style="color: var(--gray); margin-bottom: 20px;">Wszystkie wideo hostowane są na platformie Bunny Stream i Instagram dla płynnego odtwarzania.</p>
-                <a href="#contact" class="cta-button">Skontaktuj się, aby zobaczyć więcej</a>
+                <p style="color: var(--gray); margin-bottom: 20px;">Wszystkie wideo hostowane są na Bunny Stream i Instagram dla płynnego odtwarzania.</p>
+                <a href="#contact" class="cta-button">Masz podobny projekt? Porozmawiajmy</a>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- ========== FAQ SECTION (NOWA - Techniczne) ========== -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">Najczęściej <span>zadawane pytania</span></h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Jaki jest czas realizacji?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Shorts/Reels (do 90s): do dwóch dni od momentu otrzymania materiału.<br>
+                        Dłuższe formy (do 10 min): 3-5 dni roboczych.<br>
+                        Pilne zlecenia – możliwy ekspres (dopłata 50%).</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Jak dostarczyć nagrania?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Najlepiej przez dyski w chmurze tj. Dysk google, Mega.nz, Dropbox, lub strony tj. Swisstransfer.com i wetransfer.com</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Ile rund poprawek wliczonych w cenę?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Standardowo 1-2 rundy poprawek są wliczone w cenę. Zazwyczaj nie są potrzebne, bo pracuję zgodnie z briefem. Kolejne rundy płatne indywidualnie</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Dodajesz muzykę / sound design?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tak, mam dostęp do biblioteki Artlist. Mogę również pracować z muzyką dostarczoną przez klienta. Sound design (efekty dźwiękowe) wliczone w cenę.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Eksportujesz w kilku formatach?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tak. Dostarczam export w:</p>
+                        <ul>
+                            <li>16:9 (YouTube, Facebook, LinkedIn)</li>
+                            <li>9:16 (Reels, Shorts, TikTok, Stories)</li>
+                            <li>1:1 (Instagram feed, Twitter) - opcjonalnie</li>
+                        </ul>
+                        <p>Codec: H.264 lub H.265 (zależnie od potrzeb).</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Czy dostarczasz napisy?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tak – mogę dodać napisy hardcoded (wypalone w video) lub dostarczyć osobny plik SRT.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT SECTION ========== -->
     <section id="contact">
         <div class="container">
-            <h2 class="section-title">Skontaktuj się <span>ze mną</span></h2>
+            <h2 class="section-title">Rozpocznij <span>projekt</span></h2>
             <div class="contact-container">
                 <div class="contact-info">
                     <div class="contact-card">
@@ -961,28 +1454,52 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ========== FOOTER ========== -->
     <footer>
         <div class="container footer-container">
             <a href="https://github.com/HenrykMszyca/Portfolio" target="_blank" class="github-link">
                 <i class="fab fa-github"></i> Zobacz projekt na GitHub
             </a>
             <p>© 2026 Henryk Mszyca. Wszystkie prawa zastrzeżone.</p>
-            <p>Montaż filmów dla social media | Shorts | Long-form</p>
+            <p>Montaż filmów dla social media | Shorts | Long-form | Events</p>
         </div>
     </footer>
 
+    <!-- ========== JAVASCRIPT ========== -->
     <script>
-        // Array z iframe kodami dla każdego filmu (indeksy: 0, 3, 4, 5, 6, 8)
+        // ========== HAMBURGER MENU (NOWY) ==========
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const body = document.body;
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        
+        // Toggle mobile menu
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+        
+        // Close menu when link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+        
+        // ========== VIDEO MODAL ==========
+        // Array z iframe kodami dla każdego filmu
         const videoIframes = [
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/28efb541-5d7a-4325-9cd5-a092fb6db849?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
-            null, // Kafelek 2 - Instagram (nie ma iframe)
-            null, // Kafelek 3 - Instagram (nie ma iframe)
+            null, // Instagram
+            null, // Instagram
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/6e596615-bc83-40cc-b903-d2dd17a2b44d?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/5d52c263-abc9-4cb0-afe6-0db3e251260e?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/a4b9c9c8-9cdc-49f4-aba4-893a6a4c319c" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/5e7524ce-92cb-455b-8ca5-acb759015b0b?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
-            null, // Kafelek 8 - Instagram (nie ma iframe)
+            null, // Instagram
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/822d7212-5eed-41d3-b14d-2a4c2f88e216?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`
         ];
 
@@ -990,29 +1507,19 @@
         const videoModal = document.getElementById('videoModal');
         const videoContainer = document.getElementById('videoContainer');
         const closeModalBtn = document.querySelector('.close-modal');
-        const body = document.body;
 
-        // Otwieranie modala po kliknięciu w kafelek (tylko te z data-video-index)
+        // Otwieranie modala po kliknięciu w kafelek
         document.querySelectorAll('.video-card[data-video-index]').forEach(card => {
             card.addEventListener('click', function(e) {
-                // Zapobiegaj domyślnej akcji dla linków
                 if (this.tagName === 'A') return;
                 
                 const videoIndex = parseInt(this.getAttribute('data-video-index'));
                 
-                // Sprawdź czy dla tego indeksu istnieje iframe
                 if (videoIframes[videoIndex]) {
-                    // Wstaw iframe do kontenera
                     videoContainer.innerHTML = videoIframes[videoIndex];
-                    
-                    // Pokaż modal
                     videoModal.style.display = 'block';
                     body.classList.add('modal-open');
-                    
-                    // Zablokuj scroll na body
                     body.style.overflow = 'hidden';
-                    
-                    // Ustaw focus na przycisk zamknięcia dla dostępności
                     closeModalBtn.focus();
                 }
             });
@@ -1020,32 +1527,77 @@
 
         // Zamykanie modala
         closeModalBtn.addEventListener('click', closeModal);
-
-        // Zamykanie modala po kliknięciu poza nim
+        
         videoModal.addEventListener('click', function(event) {
             if (event.target === videoModal) {
                 closeModal();
             }
         });
-
-        // Zamykanie modala klawiszem Escape
+        
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape' && videoModal.style.display === 'block') {
                 closeModal();
             }
         });
 
-        // Funkcja zamykająca modal
         function closeModal() {
             videoModal.style.display = 'none';
             body.classList.remove('modal-open');
             body.style.overflow = 'auto';
-            
-            // Usuń iframe żeby zatrzymać odtwarzanie
             videoContainer.innerHTML = '';
         }
+        
+        // ========== PORTFOLIO FILTERS (NOWE) ==========
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const videoCards = document.querySelectorAll('.video-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                videoCards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.classList.remove('hidden');
+                    } else {
+                        const category = card.getAttribute('data-category');
+                        if (category === filterValue) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+        
+        // ========== FAQ ACCORDION (NOWY) ==========
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+                
+                // Close all FAQs
+                faqQuestions.forEach(q => {
+                    q.classList.remove('active');
+                    q.nextElementSibling.classList.remove('active');
+                });
+                
+                // Open clicked FAQ if it wasn't active
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('active');
+                }
+            });
+        });
 
-        // Smooth scrolling for anchor links
+        // ========== SMOOTH SCROLLING ==========
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1063,7 +1615,7 @@
             });
         });
         
-        // Add hover effect to video cards
+        // ========== HOVER EFFECTS ==========
         document.querySelectorAll('.video-card').forEach(card => {
             const playIcon = card.querySelector('.play-icon');
             if (playIcon) {
@@ -1079,8 +1631,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
