@@ -10,7 +10,7 @@
     <style>
         /* ========== CSS VARIABLES - Zachowane z instrukcji ========== */
         :root {
-           --primary: #3b82f6;        /* Jasny niebieski */
+            --primary: #3b82f6;         /* Jasny niebieski */
             --primary-dark: #2563eb;    /* Niebieski ciemniejszy */
             --secondary: #f59e0b;       /* Amber (bez zmiany) */
             --dark: #0f172a;            /* Granatowy czarny */
@@ -819,6 +819,132 @@
             font-weight: bold;
         }
         
+        /* ========== CONTACT SECTION REDESIGN ========== */
+        .contact-section-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .contact-section-label::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background-color: var(--dark);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .contact-section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 50px;
+        }
+
+        .contact-section-title span {
+            color: var(--primary);
+        }
+
+        .contact-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-col-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 24px;
+        }
+
+        /* Contact items - new design */
+        .contact-item-new {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .contact-item-new:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon-box {
+            width: 46px;
+            height: 46px;
+            background-color: #eff6ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon-box i {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .contact-item-text small {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--gray);
+            margin-bottom: 2px;
+        }
+
+        .contact-item-text strong {
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* Availability - green dots */
+        .availability-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .availability-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .availability-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .contact-two-col {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-section-title {
+                font-size: 2rem;
+            }
+        }
+
         /* ========== FOOTER ========== */
         footer {
             background-color: var(--dark);
@@ -1418,34 +1544,40 @@
     <!-- ========== CONTACT SECTION ========== -->
     <section id="contact">
         <div class="container">
-            <h2 class="section-title">Rozpocznij <span>projekt</span></h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-card">
-                        <h3>Dane kontaktowe</h3>
-                        <div class="contact-item">
+            <h2 class="contact-section-title">Rozpocznij <span>projekt</span></h2>
+            <div class="contact-two-col">
+                <div>
+                    <p class="contact-col-title">Dane kontaktowe</p>
+                    <div class="contact-item-new">
+                        <div class="contact-icon-box">
                             <i class="fas fa-envelope"></i>
-                            <div>
-                                <strong>Email</strong>
-                                <p>henrykmszyca@vp.pl</p>
-                            </div>
                         </div>
-                        <div class="contact-item">
-                            <i class="fab fa-instagram"></i>
-                            <div>
-                                <strong>Instagram DM</strong>
-                                <p>@heniubombel</p>
-                            </div>
+                        <div class="contact-item-text">
+                            <small>Email</small>
+                            <strong>henrykmszyca@vp.pl</strong>
                         </div>
                     </div>
-                    
-                    <div class="status-container">
-                        <div class="status-item">
-                            <div class="status-checkbox checked"></div>
+                    <div class="contact-item-new">
+                        <div class="contact-icon-box">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="contact-item-text">
+                            <small>Instagram DM</small>
+                            <strong>@heniubombel</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prawa kolumna: Dostępność -->
+                <div>
+                    <p class="contact-col-title">Dostępność</p>
+                    <div class="availability-list">
+                        <div class="availability-item">
+                            <div class="availability-dot"></div>
                             <span>Gotowy na jednorazowe zlecenia</span>
                         </div>
-                        <div class="status-item">
-                            <div class="status-checkbox checked"></div>
+                        <div class="availability-item">
+                            <div class="availability-dot"></div>
                             <span>Otwarty na współpracę długoterminową</span>
                         </div>
                     </div>
@@ -1631,6 +1763,3 @@
     </script>
 </body>
 </html>
-
-
-
