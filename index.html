@@ -6,92 +6,80 @@
     <title>Henryk Mszyca - Montażysta Filmów</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        /* ========== CSS VARIABLES - Zachowane z instrukcji ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
-            --primary: #3b82f6;         /* Jasny niebieski */
-            --primary-dark: #2563eb;    /* Niebieski ciemniejszy */
-            --secondary: #f59e0b;       /* Amber (bez zmiany) */
-            --dark: #0f172a;            /* Granatowy czarny */
-            --light: #f8fafc;           /* Bardzo jasny szary */
-            --gray: #64748b;            /* Slate gray */
-            --gray-light: #e2e8f0;      /* Slate light */
+            --bg: #f0f2f7;
+            --surface: #ffffff;
+            --border: rgba(0,0,0,0.07);
+            --accent: #6a5aff;
+            --accent2: #c45aff;
+            --accent3: #ff6b6b;
+            --text: #0d0d1a;
+            --muted: #9090aa;
+            --muted2: #555570;
+            --green: #22c55e;
         }
-        
-        /* ========== BASIC RESET ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: var(--light);
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            background-image:
+                radial-gradient(ellipse at 10% 10%, rgba(106,90,255,0.07) 0%, transparent 55%),
+                radial-gradient(ellipse at 90% 90%, rgba(196,90,255,0.05) 0%, transparent 55%);
+            color: var(--text);
             overflow-x: hidden;
+            line-height: 1.6;
         }
-        
-        body.modal-open {
-            overflow: hidden;
-        }
-        
-        body.menu-open {
-            overflow: hidden;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* ========== HEADER & NAVIGATION (z hamburger menu) ========== */
+        body.modal-open, body.menu-open { overflow: hidden; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── HEADER ── */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background: rgba(240,242,247,0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
             position: fixed;
             width: 100%;
             z-index: 1000;
         }
-        
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 18px 0;
         }
-        
         .logo {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Syne', sans-serif;
             font-weight: 800;
-            font-size: 1.8rem;
-            color: var(--dark);
+            font-size: 1.5rem;
+            color: var(--text);
             text-decoration: none;
-            z-index: 1001;
+            letter-spacing: -0.02em;
         }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
+        .logo span {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
+        .nav-links { display: flex; gap: 32px; }
         .nav-links a {
             text-decoration: none;
-            color: var(--dark);
+            color: var(--muted2);
             font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
+            font-size: 0.95rem;
+            transition: color 0.2s;
         }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        
-        /* Hamburger Menu */
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hamburger */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -102,1028 +90,878 @@
             border: none;
             padding: 5px;
         }
-        
         .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--dark);
+            width: 24px; height: 2px;
+            background: var(--text);
             transition: all 0.3s;
-            border-radius: 3px;
+            border-radius: 2px;
         }
-        
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(7px, 7px);
-        }
-        
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-        
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
         /* Mobile Menu */
         .mobile-menu {
             display: none;
             position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            height: 100vh;
-            background-color: white;
+            top: 0; right: -100%;
+            width: 100%; height: 100vh;
+            background: var(--bg);
             z-index: 999;
             transition: right 0.4s ease;
             padding-top: 100px;
         }
-        
-        .mobile-menu.active {
-            right: 0;
-        }
-        
-        .mobile-menu nav {
-            display: flex;
-            flex-direction: column;
-            padding: 0 20px;
-        }
-        
+        .mobile-menu.active { right: 0; }
+        .mobile-menu nav { display: flex; flex-direction: column; padding: 0 24px; }
         .mobile-menu nav a {
             padding: 20px 0;
-            border-bottom: 1px solid var(--gray-light);
+            border-bottom: 1px solid var(--border);
             text-decoration: none;
-            color: var(--dark);
+            color: var(--text);
             font-weight: 600;
             font-size: 1.2rem;
-            transition: color 0.3s;
+            font-family: 'Syne', sans-serif;
+            transition: color 0.2s;
         }
-        
-        .mobile-menu nav a:hover {
-            color: var(--primary);
-        }
-        
-        /* ========== HERO SECTION ========== */
+        .mobile-menu nav a:hover { color: var(--accent); }
+
+        /* ── HERO ── */
         .hero {
-            padding: 160px 0 100px;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+            padding: 160px 0 110px;
             position: relative;
             overflow: hidden;
         }
-        
         .hero::before {
-            content: "";
+            content: '';
             position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 300px;
-            height: 300px;
-            background-color: var(--primary);
-            opacity: 0.1;
+            top: -80px; right: -80px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(106,90,255,0.1) 0%, transparent 70%);
             border-radius: 50%;
         }
-        
         .hero::after {
-            content: "";
+            content: '';
             position: absolute;
-            bottom: -100px;
-            left: -100px;
-            width: 400px;
-            height: 400px;
-            background-color: var(--secondary);
-            opacity: 0.05;
+            bottom: -100px; left: -80px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(196,90,255,0.07) 0%, transparent 70%);
             border-radius: 50%;
         }
-        
-        .hero-content {
-            max-width: 700px;
-            position: relative;
-            z-index: 1;
+        .hero-content { max-width: 720px; position: relative; z-index: 1; }
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted2);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
         }
-        
+        .hero-eyebrow .dot {
+            width: 8px; height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+        }
         .hero h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            color: var(--dark);
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+            color: var(--text);
         }
-        
-        .hero .title-line-2 {
-            color: var(--primary);
-            display: block;
+        .hero h1 .grad {
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
         .hero p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            margin-bottom: 30px;
+            font-size: 1.15rem;
+            color: var(--muted2);
+            margin-bottom: 36px;
+            max-width: 560px;
+            font-weight: 300;
+            line-height: 1.7;
         }
-        
-        .cta-button {
+        .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+        .btn-primary {
             display: inline-block;
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             color: white;
             padding: 14px 32px;
-            border-radius: 8px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.25s;
             border: none;
             cursor: pointer;
+            box-shadow: 0 8px 24px rgba(106,90,255,0.25);
         }
-        
-        .cta-button:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(106,90,255,0.35);
         }
-        
-        /* ========== SECTION STYLING ========== */
-        section {
-            padding: 80px 0;
+        .btn-outline {
+            display: inline-block;
+            background: white;
+            color: var(--text);
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.25s;
+            border: 1.5px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
         }
-        
-        .section-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 50px;
-            color: var(--dark);
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
         }
-        
-        .section-title span {
-            color: var(--primary);
-        }
-        
-        /* ========== ABOUT SECTION (poprawiona - jako montażysta) ========== */
-        .about-content {
+
+        /* ── SECTIONS ── */
+        section { padding: 96px 0; }
+
+        .section-eyebrow {
             display: flex;
             align-items: center;
-            gap: 60px;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
         }
-        
-        .about-text {
-            flex: 1;
+        .section-eyebrow::before, .section-eyebrow::after {
+            content: '';
+            display: block;
+            width: 28px; height: 1px;
+            background: var(--accent);
+            opacity: 0.4;
         }
-        
-        .about-text p {
-            font-size: 1.1rem;
-            color: var(--gray);
-            margin-bottom: 20px;
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 56px;
+            color: var(--text);
+            letter-spacing: -0.02em;
+            line-height: 1.15;
         }
-        
-        .highlight-box {
-            background-color: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            margin-top: 30px;
-            border-left: 5px solid var(--secondary);
+        .section-title .grad {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        /* ========== NOWA SEKCJA: PROCES WSPÓŁPRACY ========== */
-        .process {
-            background-color: white;
+
+        /* ── ABOUT ── */
+        .about { background: white; }
+        .about-card {
+            max-width: 860px;
+            margin: 0 auto;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 48px;
+            position: relative;
+            overflow: hidden;
         }
-        
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--accent2));
+        }
+        .about-card p {
+            font-size: 1.05rem;
+            color: var(--muted2);
+            margin-bottom: 16px;
+            line-height: 1.75;
+            font-weight: 400;
+        }
+        .about-card p:last-child { margin-bottom: 0; }
+        .about-card strong { color: var(--text); font-weight: 600; }
+
+        /* ── PROCESS ── */
         .process-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
         }
-        
         .process-step {
-            background-color: var(--light);
-            border-radius: 10px;
-            padding: 30px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 28px;
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            border-top: 4px solid var(--primary);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
         }
-        
         .process-step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
         }
-        
         .process-number {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary);
+            width: 52px; height: 52px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             color: white;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            font-weight: 700;
-            line-height: 50px;
-            margin-bottom: 20px;
-        }
-        
-        .process-step h3 {
+            border-radius: 16px;
             font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: var(--dark);
+            font-weight: 800;
+            font-family: 'Syne', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(106,90,255,0.25);
         }
-        
-        .process-step p {
-            color: var(--gray);
-            font-size: 1rem;
-            line-height: 1.6;
+        .process-step h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
         }
-        
-        /* ========== SKILLS SECTION (poprawiona - bez "Scenariuszy") ========== */
+        .process-step p { font-size: 0.95rem; color: var(--muted2); line-height: 1.6; }
+
+        /* ── SKILLS ── */
+        .skills { background: white; }
         .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
         }
-        
         .skill-column {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
             transition: transform 0.3s, box-shadow 0.3s;
-            border-top: 4px solid var(--primary);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
         }
-        
         .skill-column:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
         }
-        
         .skill-column-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
         }
-        
-        .skill-column-header i {
-            font-size: 2.5rem;
-            color: var(--primary);
+        .skill-icon {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, rgba(106,90,255,0.12), rgba(196,90,255,0.12));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
+        .skill-icon i { color: var(--accent); font-size: 1.1rem; }
         .skill-column-header h3 {
-            font-size: 1.5rem;
-            color: var(--dark);
-            margin: 0;
-            font-weight: 600;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
         }
-        
-        .skill-list {
-            list-style: none;
-            flex-grow: 1;
-        }
-        
+        .skill-list { list-style: none; }
         .skill-list li {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 15px;
-            color: var(--gray);
-            line-height: 1.5;
-            font-size: 1.1rem;
+            gap: 10px;
+            padding: 10px 0;
+            color: var(--muted2);
+            font-size: 0.97rem;
+            border-bottom: 1px solid var(--border);
         }
-        
-        .skill-list li:before {
-            content: "•";
-            color: var(--primary);
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 1.2rem;
-            line-height: 1;
-            flex-shrink: 0;
-        }
-        
-        /* ========== TESTIMONIALS SECTION (NOWA) ========== */
-        .testimonials {
-            background-color: white;
-        }
-        
-        .testimonials-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .testimonial-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            position: relative;
-            border-left: 4px solid var(--secondary);
-        }
-        
-        .testimonial-quote {
-            font-size: 1.1rem;
-            color: var(--gray);
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-        
-        .testimonial-author {
+        .skill-list li:last-child { border-bottom: none; }
+        .skill-list li::before {
+            content: '✓';
+            width: 20px; height: 20px;
+            background: rgba(106,90,255,0.1);
+            color: var(--accent);
+            border-radius: 6px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
         }
-        
-        .testimonial-author-info h4 {
-            color: var(--dark);
-            font-size: 1.1rem;
-            margin-bottom: 5px;
+
+        /* ── TESTIMONIALS ── */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 20px;
+            align-items: stretch;
         }
-        
-        .testimonial-author-info p {
-            color: var(--gray);
-            font-size: 0.9rem;
+        .testimonial-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
         }
-        
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
         .quote-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            opacity: 0.2;
+            font-size: 2rem;
+            color: var(--accent);
+            opacity: 0.15;
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 24px; right: 24px;
         }
-        
-        /* ========== PORTFOLIO SECTION (z filtrami) ========== */
-        .portfolio {
-            background-color: #f8fafc;
+        .testimonial-stars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 16px;
         }
-        
-        /* Filtry Portfolio */
+        .testimonial-stars i { color: #fbbf24; font-size: 0.85rem; }
+        .testimonial-quote {
+            font-size: 1rem;
+            color: var(--muted2);
+            line-height: 1.65;
+            margin-bottom: 24px;
+            font-style: italic;
+            flex-grow: 1;
+        }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .author-avatar {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .testimonial-author-info h4 { color: var(--text); font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+        .testimonial-author-info p { color: var(--muted); font-size: 0.82rem; }
+
+        /* ── PORTFOLIO ── */
+        .portfolio { background: white; }
         .portfolio-filters {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             margin-bottom: 40px;
             flex-wrap: wrap;
         }
-        
         .filter-btn {
-            padding: 10px 24px;
-            border: 2px solid var(--gray-light);
-            background-color: white;
-            color: var(--dark);
-            border-radius: 8px;
+            padding: 9px 22px;
+            border: 1.5px solid var(--border);
+            background: var(--bg);
+            color: var(--muted2);
+            border-radius: 100px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.25s;
         }
-        
-        .filter-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-        
+        .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
         .filter-btn.active {
-            background-color: var(--primary);
-            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-color: transparent;
             color: white;
+            box-shadow: 0 4px 16px rgba(106,90,255,0.3);
         }
-        
         .videos-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
         }
-        
         .video-card {
-            background-color: white;
-            border-radius: 10px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             transition: all 0.3s;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
             display: block;
         }
-        
-        /* Klasa do ukrywania elementów przy filtracji */
-        .video-card.hidden {
-            display: none;
-        }
-        
+        .video-card.hidden { display: none; }
         .video-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
         }
-        
-        .thumbnail-container {
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .thumbnail {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .video-card:hover .thumbnail {
-            transform: scale(1.05);
-        }
-        
+        .thumbnail-container { height: 200px; position: relative; overflow: hidden; }
+        .thumbnail { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .video-card:hover .thumbnail { transform: scale(1.05); }
         .play-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.3);
+            inset: 0;
+            background: rgba(13,13,26,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             transition: opacity 0.3s;
         }
-        
-        .video-card:hover .play-overlay {
-            opacity: 1;
-        }
-        
+        .video-card:hover .play-overlay { opacity: 1; }
         .play-icon {
-            background-color: var(--primary);
-            width: 60px;
-            height: 60px;
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
-            transform: scale(0.8);
+            font-size: 1.2rem;
+            box-shadow: 0 8px 32px rgba(106,90,255,0.4);
+            transform: scale(0.85);
             transition: transform 0.3s;
         }
-        
-        .video-card:hover .play-icon {
-            transform: scale(1);
-        }
-        
-        .video-info {
-            padding: 20px;
-        }
-        
+        .video-card:hover .play-icon { transform: scale(1); }
+        .video-info { padding: 20px 22px; }
         .video-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--dark);
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
         }
-        
-        .video-info p {
-            color: var(--gray);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        
+        .video-info p { color: var(--muted2); font-size: 0.88rem; line-height: 1.55; }
+
         /* Video Modal */
         .video-modal {
             display: none;
             position: fixed;
             z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
+            inset: 0;
+            background: rgba(13,13,26,0.9);
             animation: fadeIn 0.3s ease;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .modal-content {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
-            max-width: 1000px;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
+            max-width: 980px;
             animation: slideIn 0.3s ease;
         }
-        
         @keyframes slideIn {
-            from { transform: translate(-50%, -60%); opacity: 0; }
+            from { transform: translate(-50%, -58%); opacity: 0; }
             to { transform: translate(-50%, -50%); opacity: 1; }
         }
-        
         .close-modal {
             position: absolute;
-            top: -50px;
-            right: 0;
+            top: -50px; right: 0;
             color: white;
-            font-size: 40px;
-            font-weight: bold;
+            font-size: 36px;
             cursor: pointer;
-            z-index: 2001;
             background: none;
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
-        
-        .close-modal:hover {
-            color: var(--secondary);
-        }
-        
+        .close-modal:hover { color: var(--accent2); }
         .video-wrapper {
             position: relative;
             width: 100%;
             padding-top: 56.25%;
-            background-color: #000;
-            border-radius: 10px;
+            background: #000;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 24px 80px rgba(0,0,0,0.6);
         }
-        
         .video-iframe-container {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             border: 0;
         }
-        
-        /* ========== FAQ SECTION (NOWA - Techniczne) ========== */
-        .faq {
-            background-color: white;
+
+        /* ── PRICING ── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            align-items: start;
         }
-        
-        .faq-container {
-            max-width: 900px;
-            margin: 0 auto;
+        .pricing-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 28px;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
-        
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        .pricing-card.featured {
+            background: #0d0d1a;
+            border-color: transparent;
+            transform: translateY(-14px);
+            box-shadow: 0 32px 80px rgba(106,90,255,0.22), 0 0 0 1.5px rgba(106,90,255,0.3);
+        }
+        .pricing-card.featured:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 40px 100px rgba(106,90,255,0.28);
+        }
+        .pricing-badge {
+            position: absolute;
+            top: -14px; left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: white;
+            font-family: 'Syne', sans-serif;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+        .pricing-tier {
+            font-family: 'Syne', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+        .pricing-card.featured .pricing-tier { color: #a594ff; }
+        .pricing-divider {
+            width: 36px; height: 2px;
+            background: var(--border);
+            margin-bottom: 24px;
+        }
+        .pricing-card.featured .pricing-divider { background: rgba(106,90,255,0.4); }
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            margin-bottom: 4px;
+        }
+        .pricing-currency { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 600; color: var(--muted2); }
+        .pricing-amount {
+            font-family: 'Syne', sans-serif;
+            font-size: 50px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            color: var(--text);
+        }
+        .pricing-card.featured .pricing-amount { color: white; }
+        .pricing-card.featured .pricing-currency { color: #a594ff; }
+        .pricing-period { font-size: 12px; color: var(--muted); font-weight: 300; margin-bottom: 16px; }
+        .pricing-card.featured .pricing-period { color: #666688; }
+        .pricing-desc {
+            font-size: 12.5px;
+            color: var(--muted2);
+            line-height: 1.55;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 300;
+        }
+        .pricing-card.featured .pricing-desc { color: #8888aa; border-bottom-color: rgba(255,255,255,0.07); }
+        .pricing-features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 11px; }
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            font-size: 13px;
+            color: var(--muted2);
+            line-height: 1.4;
+        }
+        .pricing-card.featured .pricing-features li { color: #8888aa; }
+        .pricing-features li strong { color: var(--text); font-weight: 500; }
+        .pricing-card.featured .pricing-features li strong { color: white; }
+        .pricing-check {
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: rgba(106,90,255,0.1);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 8px;
+            font-weight: 700;
+            margin-top: 1px;
+        }
+        .pricing-card.featured .pricing-check { background: rgba(106,90,255,0.2); color: #a594ff; }
+        .pricing-features li.not { opacity: 0.35; }
+        .pricing-features li.not .pricing-check { background: transparent; color: var(--muted); font-size: 10px; }
+        .pricing-cta {
+            display: block;
+            width: 100%;
+            padding: 13px 20px;
+            border-radius: 12px;
+            font-family: 'Syne', sans-serif;
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--muted2);
+            transition: all 0.25s;
+        }
+        .pricing-cta:hover { border-color: rgba(0,0,0,0.15); color: var(--text); background: rgba(0,0,0,0.02); }
+        .pricing-cta.primary {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-color: transparent;
+            color: white;
+        }
+        .pricing-cta.primary:hover { box-shadow: 0 8px 32px rgba(106,90,255,0.4); opacity: 0.92; }
+        .pricing-footer {
+            text-align: center;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+        .pricing-footer span { display: flex; align-items: center; gap: 6px; }
+        .pricing-footer .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); opacity: 0.4; }
+        .pricing-footer .fine { opacity: 0.5; font-size: 11px; }
+
+        /* ── FAQ ── */
+        .faq { background: white; }
+        .faq-container { max-width: 860px; margin: 0 auto; }
         .faq-item {
-            background-color: var(--light);
-            border-radius: 10px;
-            margin-bottom: 20px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-        
         .faq-question {
             width: 100%;
-            padding: 20px 25px;
-            background-color: white;
+            padding: 20px 24px;
+            background: transparent;
             border: none;
             text-align: left;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark);
-            transition: background-color 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .faq-question:hover {
-            background-color: var(--light);
-        }
-        
-        .faq-question i {
-            color: var(--primary);
-            transition: transform 0.3s;
-        }
-        
-        .faq-question.active i {
-            transform: rotate(180deg);
-        }
-        
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-            padding: 0 25px;
-        }
-        
-        .faq-answer.active {
-            max-height: 800px;
-            padding: 0 25px 20px;
-            transition: max-height 0.5s ease-in, padding 0.5s ease-in;
-        }
-        
-        .faq-answer p {
-            color: var(--gray);
-            line-height: 1.6;
             font-size: 1rem;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            transition: background 0.2s;
         }
-        
-        .faq-answer ul {
-            color: var(--gray);
-            line-height: 1.8;
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-        
-        /* ========== CONTACT SECTION ========== */
-        .contact-container {
-            display: flex;
-            gap: 60px;
-        }
-        
-        .contact-info {
-            flex: 1;
-        }
-        
-        .contact-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-        
-        .contact-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .contact-item i {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-right: 15px;
-            width: 30px;
-        }
-        
-        .status-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .status-checkbox {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            border: 2px solid var(--gray-light);
+        .faq-question:hover { background: rgba(106,90,255,0.03); }
+        .faq-question .faq-icon {
+            width: 28px; height: 28px;
+            background: rgba(106,90,255,0.1);
+            color: var(--accent);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            pointer-events: none;
-            user-select: none;
+            flex-shrink: 0;
+            transition: transform 0.3s, background 0.2s;
+            font-size: 0.75rem;
         }
-        
-        .status-checkbox.checked {
-            background-color: var(--primary);
-            border-color: var(--primary);
-        }
-        
-        .status-checkbox.checked::after {
-            content: "✓";
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             color: white;
-            font-weight: bold;
         }
-        
-        /* ========== CONTACT SECTION REDESIGN ========== */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 24px;
+            transition: max-height 0.5s ease-out, padding 0.3s;
+        }
+        .faq-answer.active {
+            max-height: 600px;
+            padding: 0 24px 20px;
+        }
+        .faq-answer p { color: var(--muted2); line-height: 1.7; font-size: 0.95rem; }
+        .faq-answer ul { color: var(--muted2); line-height: 1.9; margin-left: 20px; margin-top: 10px; font-size: 0.95rem; }
+
+        /* ── CONTACT ── */
         .contact-section-label {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--gray);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 16px;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
         }
-
         .contact-section-label::before {
-            content: "";
-            width: 8px;
-            height: 8px;
-            background-color: var(--dark);
+            content: '';
+            width: 8px; height: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
             border-radius: 50%;
-            display: inline-block;
         }
-
         .contact-section-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
             font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 50px;
+            color: var(--text);
+            margin-bottom: 52px;
+            letter-spacing: -0.02em;
         }
-
-        .contact-section-title span {
-            color: var(--primary);
+        .contact-section-title .grad {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
         .contact-two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: start;
         }
-
         .contact-col-title {
-            font-size: 1.1rem;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.95rem;
             font-weight: 700;
-            color: var(--dark);
+            color: var(--text);
             margin-bottom: 24px;
         }
-
-        /* Contact items - new design */
         .contact-item-new {
             display: flex;
             align-items: center;
             gap: 16px;
             padding: 18px 0;
-            border-bottom: 1px solid var(--gray-light);
+            border-bottom: 1px solid var(--border);
         }
-
-        .contact-item-new:last-child {
-            border-bottom: none;
-        }
-
+        .contact-item-new:last-child { border-bottom: none; }
         .contact-icon-box {
-            width: 46px;
-            height: 46px;
-            background-color: #eff6ff;
-            border-radius: 10px;
+            width: 44px; height: 44px;
+            background: rgba(106,90,255,0.1);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
-
-        .contact-icon-box i {
-            font-size: 1.2rem;
-            color: var(--primary);
-        }
-
-        .contact-item-text small {
-            display: block;
-            font-size: 0.78rem;
-            color: var(--gray);
-            margin-bottom: 2px;
-        }
-
-        .contact-item-text strong {
-            font-size: 1rem;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        /* Availability - green dots */
-        .availability-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .availability-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1rem;
-            color: var(--dark);
-            font-weight: 500;
-        }
-
+        .contact-icon-box i { color: var(--accent); font-size: 1.1rem; }
+        .contact-item-text small { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 2px; }
+        .contact-item-text strong { font-size: 0.97rem; color: var(--text); font-weight: 600; }
+        .availability-list { display: flex; flex-direction: column; gap: 14px; }
+        .availability-item { display: flex; align-items: center; gap: 12px; font-size: 0.97rem; color: var(--text); font-weight: 500; }
         .availability-dot {
-            width: 12px;
-            height: 12px;
-            background-color: #22c55e;
+            width: 10px; height: 10px;
+            background: var(--green);
             border-radius: 50%;
             flex-shrink: 0;
-            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+            box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
         }
 
-        @media (max-width: 768px) {
-            .contact-two-col {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .contact-section-title {
-                font-size: 2rem;
-            }
-        }
-
-        /* ========== FOOTER ========== */
+        /* ── FOOTER ── */
         footer {
-            background-color: var(--dark);
-            color: white;
+            background: #0d0d1a;
+            color: rgba(255,255,255,0.5);
             padding: 40px 0;
             text-align: center;
         }
-        
-        .footer-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        
+        .footer-container { display: flex; flex-direction: column; align-items: center; gap: 16px; }
         .github-link {
-            color: var(--secondary);
+            color: var(--accent2);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.9rem;
+            transition: color 0.2s;
         }
-        
-        .github-link:hover {
-            color: white;
+        .github-link:hover { color: white; }
+        footer p { font-size: 0.85rem; }
+
+        /* ── RESPONSIVE ── */
+        .hero h1 { white-space: nowrap; }
+        @media (max-width: 680px) {
+            .hero h1 { white-space: normal; }
+            .hero-word2 { display: block; }
         }
-        
-        /* ========== RESPONSIVE DESIGN ========== */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .about-content {
-                flex-direction: column;
-            }
-            
-            .contact-container {
-                flex-direction: column;
-            }
-            
-            .skills-container {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            }
-            
-            .process-steps {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: none; }
+            .contact-two-col { grid-template-columns: 1fr; gap: 40px; }
         }
-        
         @media (max-width: 768px) {
-            /* Mobile Navigation */
-            .nav-links {
-                display: none;
-            }
-            
-            .hamburger {
-                display: flex;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .logo {
-                font-size: 1.6rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .videos-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .skills-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .process-steps {
-                grid-template-columns: 1fr;
-            }
-            
-            .testimonials-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .portfolio-filters {
-                gap: 10px;
-            }
-            
-            .filter-btn {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-            
-            /* Modal na telefonie */
-            .modal-content {
-                width: 95%;
-                max-height: 80vh;
-            }
-            
-            .video-wrapper {
-                border-radius: 5px;
-            }
-            
-            .close-modal {
-                top: -45px;
-                right: 0;
-                background-color: rgba(0, 0, 0, 0.7);
-                border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                font-size: 30px;
-            }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .mobile-menu { display: block; }
+            .videos-container { grid-template-columns: 1fr; }
+            .skills-container { grid-template-columns: 1fr; }
         }
-        
         @media (max-width: 480px) {
-            .modal-content {
-                width: 98%;
-                max-height: 70vh;
-            }
-            
-            .video-wrapper {
-                border-radius: 0;
-            }
-            
-            .close-modal {
-                top: 10px;
-                right: 10px;
-                background-color: rgba(0, 0, 0, 0.8);
-            }
-            
-            .skill-column {
-                padding: 20px;
-            }
-            
-            .skill-column-header h3 {
-                font-size: 1.3rem;
-            }
-            
-            .skill-list li {
-                font-size: 1rem;
-            }
+            .modal-content { width: 98%; }
+            .close-modal { top: 10px; right: 10px; background: rgba(0,0,0,0.7); border-radius: 50%; width: 44px; height: 44px; }
         }
     </style>
 </head>
 <body>
-    <!-- ========== HEADER z hamburger menu ========== -->
+
+    <!-- HEADER -->
     <header>
         <div class="container header-container">
-            <a href="#" class="logo">
-                Henryk Mszyca
-            </a>
-            
-            <!-- Desktop Navigation -->
+            <a href="#" class="logo">Henryk<span> Mszyca</span></a>
             <nav class="nav-links">
                 <a href="#about">O mnie</a>
                 <a href="#process">Proces</a>
                 <a href="#skills">Umiejętności</a>
                 <a href="#portfolio">Portfolio</a>
+                <span style="width:2px;height:18px;background:var(--border);display:inline-block;align-self:center;opacity:0.7;"></span>
+                <a href="#pricing">Oferta</a>
                 <a href="#faq">FAQ</a>
                 <a href="#contact">Kontakt</a>
             </nav>
-            
-            <!-- Hamburger Button -->
             <button class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </div>
     </header>
-    
+
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <nav>
@@ -1131,89 +969,94 @@
             <a href="#process" class="mobile-link">Proces</a>
             <a href="#skills" class="mobile-link">Umiejętności</a>
             <a href="#portfolio" class="mobile-link">Portfolio</a>
+            <a href="#pricing" class="mobile-link">Oferta</a>
             <a href="#faq" class="mobile-link">FAQ</a>
             <a href="#contact" class="mobile-link">Kontakt</a>
         </nav>
     </div>
 
-    <!-- ========== HERO SECTION ========== -->
+    <!-- HERO -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Solidny montaż,<br><span class="title-line-2">zero ściemy</span></h1>
-                <p>Montuję materiały wideo dla social media – <b>od surowych nagrań do gotowego filmu.</b> Bez zbędnych efektów, bez poprawek.</p>
-                <a href="#contact" class="cta-button">Zleć montaż</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== ABOUT SECTION (poprawiona) ========== -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">O mnie</h2>
-            <div class="about-content">
-                <div class="contact-card" style="flex: 1; max-width: 900px; margin: 0 auto;">
-                    <p style="font-size: 1.1rem; color: var(--gray); margin-bottom: 20px;">Montażem wideo zajmuję się <b>od 3 lat,</b> a od roku pracuję komercyjnie. Skupiam się na solidnym warsztacie – czysty montaż, dobry pacing i storytelling bez zbędnych efektów.</p>
-                    <p style="font-size: 1.1rem; color: var(--gray); margin-bottom: 20px;">Specjalizuję się w krótkich formatach (Reels/Shorts) oraz dłuższych materiałach do 10 minut. Pracuję z materiałem dostarczonym przez klienta – od surowych nagrań do gotowego exportu.</p>
-                    <p style="font-size: 1.1rem; color: var(--gray); margin-bottom: 20px;"><strong>Dostarczasz materiał – resztę robię ja.</strong> Otrzymujesz gotowy plik w formacie pod platformę, bez potrzeby poprawek i zgadywania.</p>
+                <div class="hero-eyebrow">
+                    <span class="dot"></span>
+                    Dostępny na zlecenia
+                </div>
+                <h1><span class="hero-word1">Solidny</span> <span class="hero-word2">montaż,</span><br><span class="grad">zero ściemy</span></h1>
+                <p>Montuję materiały wideo dla social media — od surowych nagrań do gotowego filmu. <strong>Bez zbędnych efektów, gotowe do publikacji.</strong></p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn-primary">Zleć montaż</a>
+                    <a href="#portfolio" class="btn-outline">Zobacz prace</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== NOWA SEKCJA: PROCES WSPÓŁPRACY ========== -->
-    <section id="process" class="process">
+    <!-- ABOUT -->
+    <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title">Jak to <span>działa</span></h2>
+            <div class="section-eyebrow">O mnie</div>
+            <h2 class="section-title">Kim jestem</h2>
+            <div class="about-card">
+                <p>Montażem wideo zajmuję się <strong>od 3 lat</strong>, a od roku pracuję komercyjnie. Skupiam się na solidnym warsztacie — czysty montaż, dobry pacing i storytelling bez zbędnych efektów.</p>
+                <p>Specjalizuję się w krótkich formatach (Reels/Shorts) oraz dłuższych materiałach do 10 minut. Pracuję z materiałem dostarczonym przez klienta — od surowych nagrań do gotowego exportu.</p>
+                <p><strong>Dostarczasz materiał — resztę robię ja.</strong> Otrzymujesz gotowy plik w formacie pod platformę, bez potrzeby zgadywania.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process">
+        <div class="container">
+            <div class="section-eyebrow">Proces</div>
+            <h2 class="section-title">Jak to <span class="grad">działa</span></h2>
             <div class="process-steps">
                 <div class="process-step">
                     <div class="process-number">1</div>
                     <h3>Brief</h3>
                     <p>Wysyłasz materiał + wytyczne (długość, format, styl). Im bardziej konkretnie, tym lepiej.</p>
                 </div>
-                
                 <div class="process-step">
                     <div class="process-number">2</div>
                     <h3>Montaż</h3>
-                    <p>Dostajesz video w 2-3 dni robocze (Czytaj FAQ).</p>
+                    <p>Dostajesz video w parę dni roboczych. Pilne zlecenia możliwe z dopłatą 50%.</p>
                 </div>
-                
                 <div class="process-step">
                     <div class="process-number">3</div>
                     <h3>Poprawki</h3>
-                    <p>1-2 rundy poprawek wliczone w cenę. Zazwyczaj nie są potrzebne.</p>
+                    <p>Poprawki wliczone w cenę. Zazwyczaj nie są potrzebne.</p>
                 </div>
-                
                 <div class="process-step">
                     <div class="process-number">4</div>
                     <h3>Final</h3>
-                    <p>Export w formatach odpowiednich do platformy. <b>gotowe do publikacji.</b></p>
+                    <p>Export w formatach odpowiednich do platformy. Gotowe do publikacji.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== SKILLS SECTION (poprawiona - bez "Scenariuszy") ========== -->
+    <!-- SKILLS -->
     <section id="skills" class="skills">
         <div class="container">
-            <h2 class="section-title">Moje <span>umiejętności</span></h2>
+            <div class="section-eyebrow">Umiejętności</div>
+            <h2 class="section-title">Moje <span class="grad">kompetencje</span></h2>
             <div class="skills-container">
                 <div class="skill-column">
                     <div class="skill-column-header">
-                        <i class="fas fa-film"></i>
+                        <div class="skill-icon"><i class="fas fa-film"></i></div>
                         <h3>Montaż</h3>
                     </div>
                     <ul class="skill-list">
-                        <li>Krótkie formaty (Reels/Shorts 15-90s)</li>
+                        <li>Krótkie formaty (Reels/Shorts 15–90s)</li>
                         <li>Dłuższe formy wideo (do 10 min)</li>
                         <li>VFX & korekta barwna/dźwiękowa</li>
                         <li>Sound design i muzyka</li>
                     </ul>
                 </div>
-                
                 <div class="skill-column">
                     <div class="skill-column-header">
-                        <i class="fas fa-scissors"></i>
+                        <div class="skill-icon"><i class="fas fa-scissors"></i></div>
                         <h3>Struktura montażu</h3>
                     </div>
                     <ul class="skill-list">
@@ -1223,10 +1066,9 @@
                         <li>Hook w pierwszych 3 sekundach</li>
                     </ul>
                 </div>
-                
                 <div class="skill-column">
                     <div class="skill-column-header">
-                        <i class="fas fa-cogs"></i>
+                        <div class="skill-icon"><i class="fas fa-cogs"></i></div>
                         <h3>Narzędzia</h3>
                     </div>
                     <ul class="skill-list">
@@ -1240,39 +1082,50 @@
         </div>
     </section>
 
-    <!-- ========== TESTIMONIALS SECTION (NOWA) ========== -->
-    <section id="testimonials" class="testimonials">
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
         <div class="container">
-            <h2 class="section-title">Co mówią <span>klienci</span></h2>
+            <div class="section-eyebrow">Opinie</div>
+            <h2 class="section-title">Co mówią <span class="grad">klienci</span></h2>
             <div class="testimonials-container">
                 <div class="testimonial-card">
                     <i class="fas fa-quote-right quote-icon"></i>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
                     <p class="testimonial-quote">"Cześć, w sumie to nie mam uwag, jest bajka!"</p>
                     <div class="testimonial-author">
+                        <div class="author-avatar">W</div>
                         <div class="testimonial-author-info">
-                            <h4>Wiktor </h4>
+                            <h4>Wiktor</h4>
                             <p>Zdrowotka.pl</p>
                         </div>
                     </div>
                 </div>
-                
                 <div class="testimonial-card">
                     <i class="fas fa-quote-right quote-icon"></i>
-                    <p class="testimonial-quote">"Czuję, że nadajemy na tych samych falach! Wszystko idealnie, żadnych poprawek"</p>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-quote">"Czuję, że nadajemy na tych samych falach! Wszystko idealnie, żadnych poprawek."</p>
                     <div class="testimonial-author">
+                        <div class="author-avatar">Ł</div>
                         <div class="testimonial-author-info">
-                            <h4>Łukasz </h4>
+                            <h4>Łukasz</h4>
                             <p>AquaGen Plus Polska</p>
                         </div>
                     </div>
                 </div>
-                
                 <div class="testimonial-card">
                     <i class="fas fa-quote-right quote-icon"></i>
-                    <p class="testimonial-quote">"Ta animacja na klapki zaje****a. Dobra robota"</p>
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-quote">"Ta animacja na klapki zaje****a. Dobra robota."</p>
                     <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
                         <div class="testimonial-author-info">
-                            <h4>Antek </h4>
+                            <h4>Antek</h4>
                             <p>Fish Your Kicks</p>
                         </div>
                     </div>
@@ -1281,163 +1134,106 @@
         </div>
     </section>
 
-    <!-- ========== PORTFOLIO SECTION z filtrami ========== -->
+    <!-- PORTFOLIO -->
     <section id="portfolio" class="portfolio">
         <div class="container">
-            <h2 class="section-title">Moje <span>prace</span></h2>
-            <p style="text-align: center; margin-bottom: 40px; color: var(--gray); max-width: 800px; margin-left: auto; margin-right: auto;">
-                Kliknij w kafelek, aby obejrzeć film. Użyj filtrów, aby zobaczyć konkretny typ projektu.
-            </p>
-            
-            <!-- Filtry Portfolio -->
+            <div class="section-eyebrow">Portfolio</div>
+            <h2 class="section-title">Moje <span class="grad">prace</span></h2>
+            <p style="text-align:center; margin-bottom:36px; color:var(--muted2); max-width:680px; margin-left:auto; margin-right:auto; font-size:0.97rem;">Kliknij w kafelek, aby obejrzeć film. Użyj filtrów, aby zobaczyć konkretny typ projektu.</p>
             <div class="portfolio-filters">
                 <button class="filter-btn active" data-filter="all">Wszystkie</button>
-                <button class="filter-btn" data-filter="shorts">Shorts/Reels</button>
+                <button class="filter-btn" data-filter="shorts">Shorts / Reels</button>
                 <button class="filter-btn" data-filter="long">Long-form</button>
                 <button class="filter-btn" data-filter="vfx">VFX</button>
             </div>
-            
             <div class="videos-container">
-                <!-- Video 1 - Klapki (Shorts) -->
                 <div class="video-card" data-video-index="5" data-category="shorts">
                     <div class="thumbnail-container">
                         <img src="klapki.png" alt="Klapki sterują umysłem!" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
+                        <div class="play-overlay"><div class="play-icon"><i class="fas fa-play"></i></div></div>
                     </div>
                     <div class="video-info">
                         <h3>Klapki sterują umysłem!</h3>
-                        <p>Nike Mind 001 – założ je, a komfort przejmie kontrolę nad Twoim umysłem i krokami!</p>
+                        <p>Nike Mind 001 – załóż je, a komfort przejmie kontrolę nad Twoim umysłem i krokami!</p>
                     </div>
                 </div>
-                
-                <!-- Video 2 - Świrowanie (Events + Instagram) -->
-                <a href="https://www.instagram.com/reel/DTqKMh2Ds8G/" target="_blank" class="video-card" data-category="shorts" onclick="event.stopPropagation();">
+                <a href="https://www.instagram.com/reel/DTqKMh2Ds8G/" target="_blank" class="video-card" data-category="shorts">
                     <div class="thumbnail-container">
                         <img src="swiry.jpg" alt="Relacja ze ŚWiRowania" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </div>
+                        <div class="play-overlay"><div class="play-icon"><i class="fas fa-external-link-alt"></i></div></div>
                     </div>
                     <div class="video-info">
                         <h3>Relacja ze ŚWiRowania</h3>
                         <p>Śląża w 20 sekund – adrenalinowy przejazd! Dynamiczna relacja z rowerowego spotkania.</p>
-                        <p style="color: var(--primary); font-size: 0.8rem; margin-top: 10px;"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
+                        <p style="color:var(--accent); font-size:0.8rem; margin-top:8px;"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
                     </div>
                 </a>
-                
-                <!-- Video 3 - Projekt rowerowy (Long + Instagram) -->
-                <a href="https://www.instagram.com/p/DM45I4Ruuve/" target="_blank" class="video-card" data-category="shorts" onclick="event.stopPropagation();">
+                <a href="https://www.instagram.com/p/DM45I4Ruuve/" target="_blank" class="video-card" data-category="shorts">
                     <div class="thumbnail-container">
                         <img src="niewyszlo.jpg" alt="Koniec projektu rowerowego" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </div>
+                        <div class="play-overlay"><div class="play-icon"><i class="fas fa-external-link-alt"></i></div></div>
                     </div>
                     <div class="video-info">
                         <h3>Koniec projektu rowerowego</h3>
-                        <p>Dlaczego ten projekt upadł? Rolka zapraszająca do obejrzenia pełnego filmu – szczera analiza.</p>
-                        <p style="color: var(--primary); font-size: 0.8rem; margin-top: 10px;"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
+                        <p>Dlaczego ten projekt upadł? Rolka zapraszająca do obejrzenia pełnego filmu.</p>
+                        <p style="color:var(--accent); font-size:0.8rem; margin-top:8px;"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
                     </div>
                 </a>
-                
-                <!-- Video 4 - VFX (VFX) -->
                 <div class="video-card" data-video-index="4" data-category="vfx">
                     <div class="thumbnail-container">
                         <img src="VFX.jpg" alt="Przykład VFX: vulcano text" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
+                        <div class="play-overlay"><div class="play-icon"><i class="fas fa-play"></i></div></div>
                     </div>
                     <div class="video-info">
                         <h3>Przykład VFX: vulcano text</h3>
                         <p>Krótka prezentacja umiejętności VFX w DaVinci Fusion – ożywiamy tekst jak lawę!</p>
                     </div>
                 </div>
-                
-                <!-- Video 5 - BMX (Long-form) -->
                 <div class="video-card" data-video-index="3" data-category="long">
                     <div class="thumbnail-container">
                         <img src="bmx.jpg" alt="Relacja z contestu BMX freestyle" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
+                        <div class="play-overlay"><div class="play-icon"><i class="fas fa-play"></i></div></div>
                     </div>
                     <div class="video-info">
                         <h3>Relacja z contestu BMX freestyle</h3>
-                        <p>BMX Freestyle na Popowicach – emocje do ostatniego triku! Relacja z zawodów w skateparku.</p>
+                        <p>BMX Freestyle na Popowicach – emocje do ostatniego triku!</p>
                     </div>
                 </div>
-                
-                <!-- Video 6 - Beauty salon (Shorts) -->
                 <div class="video-card" data-video-index="0" data-category="shorts">
                     <div class="thumbnail-container">
                         <img src="wodor1.png" alt="Wizyta w salonie beauty" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
+                        <div class="play-overlay"><div class="play-icon"><i class="fas fa-play"></i></div></div>
                     </div>
                     <div class="video-info">
                         <h3>Wizyta w salonie beauty</h3>
-                        <p>Ekskluzywna relacja z wizyty w salonie – inspiracje, metamorfozy i profesjonalne zabiegi.</p>
+                        <p>Ekskluzywna relacja z wizyty w salonie – inspiracje i profesjonalne zabiegi.</p>
                     </div>
                 </div>
-                
-                <!-- Video 7 - Zdrowotka (Shorts) -->
                 <div class="video-card" data-video-index="6" data-category="shorts">
                     <div class="thumbnail-container">
-                        <img src="zdrowotka.png" alt="Sklep zielarski w twojej okolicy!" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
+                        <img src="zdrowotka.png" alt="Sklep zielarski" class="thumbnail">
+                        <div class="play-overlay"><div class="play-icon"><i class="fas fa-play"></i></div></div>
                     </div>
                     <div class="video-info">
                         <h3>Sklep zielarski w twojej okolicy!</h3>
-                        <p>To miejsce zaspokoi twoje niedobory witamin i minerałów. Sklep z ziołami leczniczymi.</p>
+                        <p>To miejsce zaspokoi twoje niedobory witamin i minerałów.</p>
                     </div>
                 </div>
-                
-                <!-- Video 8 - Agrest (Events + Instagram) -->
-                <a href="https://www.instagram.com/reel/DPWkN0fDitU/" target="_blank" class="video-card" data-category="shorts" onclick="event.stopPropagation();">
+                <a href="https://www.instagram.com/reel/DPWkN0fDitU/" target="_blank" class="video-card" data-category="shorts">
                     <div class="thumbnail-container">
                         <img src="agrest.png" alt="Ale styl!" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </div>
+                        <div class="play-overlay"><div class="play-icon"><i class="fas fa-external-link-alt"></i></div></div>
                     </div>
                     <div class="video-info">
                         <h3>Ale styl!</h3>
-                        <p>Materiał z najlepszymi liniami przejazdów uczestników spotkania rowerowego BMX.</p>
-                        <p style="color: var(--primary); font-size: 0.8rem; margin-top: 10px;"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
+                        <p>Materiał z najlepszymi liniami przejazdów uczestników spotkania BMX.</p>
+                        <p style="color:var(--accent); font-size:0.8rem; margin-top:8px;"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
                     </div>
                 </a>
-                
-                <!-- Video 9 - Wodór 2 (Shorts) -->
                 <div class="video-card" data-video-index="8" data-category="shorts">
                     <div class="thumbnail-container">
                         <img src="wodor2.jpg" alt="Z wodorem po Polsce..." class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
+                        <div class="play-overlay"><div class="play-icon"><i class="fas fa-play"></i></div></div>
                     </div>
                     <div class="video-info">
                         <h3>Z wodorem po Polsce...</h3>
@@ -1445,93 +1241,179 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Video Modal -->
             <div id="videoModal" class="video-modal">
                 <div class="modal-content">
                     <button class="close-modal">&times;</button>
                     <div class="video-wrapper">
-                        <div class="video-iframe-container" id="videoContainer">
-                            <!-- Video iframe będzie wstawiane tutaj przez JavaScript -->
-                        </div>
+                        <div class="video-iframe-container" id="videoContainer"></div>
                     </div>
                 </div>
             </div>
-            
-            <div style="text-align: center; margin-top: 50px;">
-                <p style="color: var(--gray); margin-bottom: 20px;">Wszystkie wideo hostowane są na Bunny Stream i Instagram dla płynnego odtwarzania.</p>
-                <a href="#contact" class="cta-button">Masz podobny projekt? Porozmawiajmy</a>
+
+            <div style="text-align:center; margin-top:48px;">
+                <p style="color:var(--muted); margin-bottom:20px; font-size:0.9rem;">Wszystkie wideo hostowane są na Bunny Stream i Instagram dla płynnego odtwarzania.</p>
+                <a href="#contact" class="btn-primary">Masz podobny projekt? Porozmawiajmy</a>
             </div>
         </div>
     </section>
 
-    <!-- ========== FAQ SECTION (NOWA - Techniczne) ========== -->
+    <!-- PRICING -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-eyebrow">Oferta</div>
+            <h2 class="section-title">Montaż który <span class="grad">sprzedaje</span></h2>
+            <div class="pricing-grid">
+
+                <!-- BASIC -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Basic</div>
+                    <div class="pricing-divider"></div>
+                    <div class="pricing-price">
+                        <span class="pricing-currency">zł</span>
+                        <span class="pricing-amount">800</span>
+                    </div>
+                    <div class="pricing-period">/ miesiąc</div>
+                    <p class="pricing-desc" style="margin-top:12px;">Dla marek które zaczynają z contentem video i chcą regularnej obecności.</p>
+                    <ul class="pricing-features">
+                        <li><span class="pricing-check">✓</span><span><strong>4 rolek</strong> miesięcznie</span></li>
+                        <li><span class="pricing-check">✓</span><span>Cięcia i montaż</span></li>
+                        <li><span class="pricing-check">✓</span><span>Napisy</span></li>
+                        <li><span class="pricing-check">✓</span><span>Muzyka royalty-free</span></li>
+                        <li><span class="pricing-check">✓</span><span><strong>1 runda</strong> poprawek</span></li>
+                        <li><span class="pricing-check">✓</span><span>Realizacja do <strong>5 dni</strong></span></li>
+                        <li class="not"><span class="pricing-check">–</span><span>Korekcja kolorów</span></li>
+                        <li class="not"><span class="pricing-check">–</span><span>Czyszczenie audio</span></li>
+                        <li class="not"><span class="pricing-check">–</span><span>Priorytetowy kontakt</span></li>
+                    </ul>
+                    <a href="#contact" class="pricing-cta">Zacznijmy rozmawiać</a>
+                </div>
+
+                <!-- STANDARD -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Najpopularniejszy</div>
+                    <div class="pricing-tier">Standard</div>
+                    <div class="pricing-divider"></div>
+                    <div class="pricing-price">
+                        <span class="pricing-currency">zł</span>
+                        <span class="pricing-amount">1300</span>
+                    </div>
+                    <div class="pricing-period">/ miesiąc</div>
+                    <p class="pricing-desc" style="margin-top:12px;">Dla marek które chcą żeby ich content wyglądał profesjonalnie i wyróżniał się.</p>
+                    <ul class="pricing-features">
+                        <li><span class="pricing-check">✓</span><span><strong>8 rolek</strong> miesięcznie</span></li>
+                        <li><span class="pricing-check">✓</span><span>Cięcia i montaż</span></li>
+                        <li><span class="pricing-check">✓</span><span>Napisy</span></li>
+                        <li><span class="pricing-check">✓</span><span>Muzyka royalty-free</span></li>
+                        <li><span class="pricing-check">✓</span><span><strong>2 rundy</strong> poprawek</span></li>
+                        <li><span class="pricing-check">✓</span><span>Realizacja do <strong>3 dni</strong></span></li>
+                        <li><span class="pricing-check">✓</span><span>Korekcja kolorów</span></li>
+                        <li><span class="pricing-check">✓</span><span>Czyszczenie audio</span></li>
+                        <li class="not"><span class="pricing-check">–</span><span>Priorytetowy kontakt</span></li>
+                    </ul>
+                    <a href="#contact" class="pricing-cta primary">Zacznijmy rozmawiać</a>
+                </div>
+
+                <!-- PREMIUM -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Premium</div>
+                    <div class="pricing-divider"></div>
+                    <div class="pricing-price">
+                        <span class="pricing-currency">zł</span>
+                        <span class="pricing-amount">2300</span>
+                    </div>
+                    <div class="pricing-period">/ miesiąc</div>
+                    <p class="pricing-desc" style="margin-top:12px;">Dla marek które traktują video jako główny kanał sprzedażowy.</p>
+                    <ul class="pricing-features">
+                        <li><span class="pricing-check">✓</span><span><strong>13 rolek</strong> miesięcznie</span></li>
+                        <li><span class="pricing-check">✓</span><span>Pełna postprodukcja</span></li>
+                        <li><span class="pricing-check">✓</span><span>Napisy</span></li>
+                        <li><span class="pricing-check">✓</span><span>Muzyka royalty-free</span></li>
+                        <li><span class="pricing-check">✓</span><span><strong>Nielimitowane</strong> poprawki*</span></li>
+                        <li><span class="pricing-check">✓</span><span>Realizacja do <strong>2 dni</strong></span></li>
+                        <li><span class="pricing-check">✓</span><span>Korekcja kolorów + grading</span></li>
+                        <li><span class="pricing-check">✓</span><span>Czyszczenie audio + efekty</span></li>
+                        <li><span class="pricing-check">✓</span><span>Priorytetowy kontakt</span></li>
+                    </ul>
+                    <a href="#contact" class="pricing-cta">Zacznijmy rozmawiać</a>
+                </div>
+            </div>
+            <div class="pricing-footer">
+                <span>✦ Umowa przy każdej współpracy</span>
+                <span class="sep"></span>
+                <span>✦ Zaliczka 50% przed startem</span>
+                <span class="sep"></span>
+                <span>✦ Pliki gotowe pod każdą platformę</span>
+                <span class="sep"></span>
+                <span class="fine">* pierwsze 7 dni po oddaniu materiału</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
     <section id="faq" class="faq">
         <div class="container">
-            <h2 class="section-title">Najczęściej <span>zadawane pytania</span></h2>
+            <div class="section-eyebrow">FAQ</div>
+            <h2 class="section-title">Najczęstsze <span class="grad">pytania</span></h2>
             <div class="faq-container">
                 <div class="faq-item">
                     <button class="faq-question">
                         <span>Jaki jest czas realizacji?</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </button>
                     <div class="faq-answer">
                         <p>Shorts/Reels (do 90s): do dwóch dni od momentu otrzymania materiału.<br>
-                        Dłuższe formy (do 10 min): 3-5 dni roboczych.<br>
+                        Dłuższe formy (do 10 min): 3–5 dni roboczych.<br>
                         Pilne zlecenia – możliwy ekspres (dopłata 50%).</p>
                     </div>
                 </div>
-
                 <div class="faq-item">
                     <button class="faq-question">
                         <span>Jak dostarczyć nagrania?</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </button>
                     <div class="faq-answer">
-                        <p>Najlepiej przez dyski w chmurze tj. Dysk google, Mega.nz, Dropbox, lub strony tj. Swisstransfer.com i wetransfer.com</p>
+                        <p>Najlepiej przez dyski w chmurze tj. Dysk Google, Mega.nz, Dropbox, lub strony tj. Swisstransfer.com i WeTransfer.com</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <button class="faq-question">
                         <span>Ile rund poprawek wliczonych w cenę?</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </button>
                     <div class="faq-answer">
-                        <p>Standardowo 1-2 rundy poprawek są wliczone w cenę. Zazwyczaj nie są potrzebne, bo pracuję zgodnie z briefem. Kolejne rundy płatne indywidualnie</p>
+                        <p>Standardowo 1–2 rundy poprawek są wliczone w cenę. Zazwyczaj nie są potrzebne, bo pracuję zgodnie z briefem. Kolejne rundy płatne indywidualnie.</p>
                     </div>
                 </div>
-
                 <div class="faq-item">
                     <button class="faq-question">
                         <span>Dodajesz muzykę / sound design?</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </button>
                     <div class="faq-answer">
                         <p>Tak, mam dostęp do biblioteki Artlist. Mogę również pracować z muzyką dostarczoną przez klienta. Sound design (efekty dźwiękowe) wliczone w cenę.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <button class="faq-question">
                         <span>Eksportujesz w kilku formatach?</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </button>
                     <div class="faq-answer">
                         <p>Tak. Dostarczam export w:</p>
                         <ul>
                             <li>16:9 (YouTube, Facebook, LinkedIn)</li>
                             <li>9:16 (Reels, Shorts, TikTok, Stories)</li>
-                            <li>1:1 (Instagram feed, Twitter) - opcjonalnie</li>
+                            <li>1:1 (Instagram feed, Twitter) – opcjonalnie</li>
                         </ul>
-                        <p>Codec: H.264 lub H.265 (zależnie od potrzeb).</p>
+                        <p style="margin-top:8px;">Codec: H.264 lub H.265 (zależnie od potrzeb).</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <button class="faq-question">
                         <span>Czy dostarczasz napisy?</span>
-                        <i class="fas fa-chevron-down"></i>
+                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </button>
                     <div class="faq-answer">
                         <p>Tak – mogę dodać napisy hardcoded (wypalone w video) lub dostarczyć osobny plik SRT.</p>
@@ -1541,34 +1423,29 @@
         </div>
     </section>
 
-    <!-- ========== CONTACT SECTION ========== -->
+    <!-- CONTACT -->
     <section id="contact">
         <div class="container">
-            <h2 class="contact-section-title">Rozpocznij <span>projekt</span></h2>
+            <div class="contact-section-label">Kontakt</div>
+            <h2 class="contact-section-title">Rozpocznij <span class="grad">projekt</span></h2>
             <div class="contact-two-col">
                 <div>
                     <p class="contact-col-title">Dane kontaktowe</p>
                     <div class="contact-item-new">
-                        <div class="contact-icon-box">
-                            <i class="fas fa-envelope"></i>
-                        </div>
+                        <div class="contact-icon-box"><i class="fas fa-envelope"></i></div>
                         <div class="contact-item-text">
                             <small>Email</small>
                             <strong>henrykmszyca@vp.pl</strong>
                         </div>
                     </div>
                     <div class="contact-item-new">
-                        <div class="contact-icon-box">
-                            <i class="fab fa-instagram"></i>
-                        </div>
+                        <div class="contact-icon-box"><i class="fab fa-instagram"></i></div>
                         <div class="contact-item-text">
                             <small>Instagram DM</small>
-                            <strong>@heniubombel</strong>
+                            <strong>@hems_video</strong>
                         </div>
                     </div>
                 </div>
-
-                <!-- Prawa kolumna: Dostępność -->
                 <div>
                     <p class="contact-col-title">Dostępność</p>
                     <div class="availability-list">
@@ -1586,7 +1463,7 @@
         </div>
     </section>
 
-    <!-- ========== FOOTER ========== -->
+    <!-- FOOTER -->
     <footer>
         <div class="container footer-container">
             <a href="https://github.com/HenrykMszyca/Portfolio" target="_blank" class="github-link">
@@ -1597,168 +1474,99 @@
         </div>
     </footer>
 
-    <!-- ========== JAVASCRIPT ========== -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
-        // ========== HAMBURGER MENU (NOWY) ==========
+        // HAMBURGER
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
-        const body = document.body;
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        
-        // Toggle mobile menu
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
-            body.classList.toggle('menu-open');
+            document.body.classList.toggle('menu-open');
         });
-        
-        // Close menu when link is clicked
-        mobileLinks.forEach(link => {
+        document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 mobileMenu.classList.remove('active');
-                body.classList.remove('menu-open');
+                document.body.classList.remove('menu-open');
             });
         });
-        
-        // ========== VIDEO MODAL ==========
-        // Array z iframe kodami dla każdego filmu
+
+        // VIDEO MODAL
         const videoIframes = [
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/28efb541-5d7a-4325-9cd5-a092fb6db849?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
-            null, // Instagram
-            null, // Instagram
+            null, null,
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/6e596615-bc83-40cc-b903-d2dd17a2b44d?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/5d52c263-abc9-4cb0-afe6-0db3e251260e?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/a4b9c9c8-9cdc-49f4-aba4-893a6a4c319c" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/5e7524ce-92cb-455b-8ca5-acb759015b0b?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
-            null, // Instagram
+            null,
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/822d7212-5eed-41d3-b14d-2a4c2f88e216?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`
         ];
 
-        // Elementy modala
         const videoModal = document.getElementById('videoModal');
         const videoContainer = document.getElementById('videoContainer');
         const closeModalBtn = document.querySelector('.close-modal');
 
-        // Otwieranie modala po kliknięciu w kafelek
         document.querySelectorAll('.video-card[data-video-index]').forEach(card => {
-            card.addEventListener('click', function(e) {
-                if (this.tagName === 'A') return;
-                
-                const videoIndex = parseInt(this.getAttribute('data-video-index'));
-                
-                if (videoIframes[videoIndex]) {
-                    videoContainer.innerHTML = videoIframes[videoIndex];
+            card.addEventListener('click', function() {
+                const idx = parseInt(this.getAttribute('data-video-index'));
+                if (videoIframes[idx]) {
+                    videoContainer.innerHTML = videoIframes[idx];
                     videoModal.style.display = 'block';
-                    body.classList.add('modal-open');
-                    body.style.overflow = 'hidden';
-                    closeModalBtn.focus();
+                    document.body.classList.add('modal-open');
                 }
             });
         });
-
-        // Zamykanie modala
         closeModalBtn.addEventListener('click', closeModal);
-        
-        videoModal.addEventListener('click', function(event) {
-            if (event.target === videoModal) {
-                closeModal();
-            }
-        });
-        
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && videoModal.style.display === 'block') {
-                closeModal();
-            }
-        });
-
+        videoModal.addEventListener('click', e => { if (e.target === videoModal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
         function closeModal() {
             videoModal.style.display = 'none';
-            body.classList.remove('modal-open');
-            body.style.overflow = 'auto';
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = 'auto';
             videoContainer.innerHTML = '';
         }
-        
-        // ========== PORTFOLIO FILTERS (NOWE) ==========
-        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        // FILTERS
+        const filterBtns = document.querySelectorAll('.filter-btn');
         const videoCards = document.querySelectorAll('.video-card');
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                button.classList.add('active');
-                
-                const filterValue = button.getAttribute('data-filter');
-                
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const val = btn.getAttribute('data-filter');
                 videoCards.forEach(card => {
-                    if (filterValue === 'all') {
-                        card.classList.remove('hidden');
-                    } else {
-                        const category = card.getAttribute('data-category');
-                        if (category === filterValue) {
-                            card.classList.remove('hidden');
-                        } else {
-                            card.classList.add('hidden');
-                        }
-                    }
+                    card.classList.toggle('hidden', val !== 'all' && card.getAttribute('data-category') !== val);
                 });
             });
         });
-        
-        // ========== FAQ ACCORDION (NOWY) ==========
-        const faqQuestions = document.querySelectorAll('.faq-question');
-        
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const isActive = question.classList.contains('active');
-                
-                // Close all FAQs
-                faqQuestions.forEach(q => {
-                    q.classList.remove('active');
-                    q.nextElementSibling.classList.remove('active');
+
+        // FAQ
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const answer = q.nextElementSibling;
+                const isActive = q.classList.contains('active');
+                document.querySelectorAll('.faq-question').forEach(x => {
+                    x.classList.remove('active');
+                    x.nextElementSibling.classList.remove('active');
                 });
-                
-                // Open clicked FAQ if it wasn't active
                 if (!isActive) {
-                    question.classList.add('active');
+                    q.classList.add('active');
                     answer.classList.add('active');
                 }
             });
         });
 
-        // ========== SMOOTH SCROLLING ==========
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+        // SMOOTH SCROLL
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
                 }
             });
-        });
-        
-        // ========== HOVER EFFECTS ==========
-        document.querySelectorAll('.video-card').forEach(card => {
-            const playIcon = card.querySelector('.play-icon');
-            if (playIcon) {
-                card.addEventListener('mouseenter', function() {
-                    playIcon.style.transform = 'scale(1)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    playIcon.style.transform = 'scale(0.8)';
-                });
-            }
         });
     </script>
 </body>
