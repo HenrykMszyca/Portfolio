@@ -54,6 +54,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 18px 0;
+            gap: 40px;
         }
         .logo {
             font-family: 'Syne', sans-serif;
@@ -69,13 +70,14 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .nav-links { display: flex; gap: 32px; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
         .nav-links a {
             text-decoration: none;
             color: var(--muted2);
             font-weight: 500;
             font-size: 0.95rem;
             transition: color 0.2s;
+            white-space: nowrap;
         }
         .nav-links a:hover { color: var(--accent); }
 
@@ -609,6 +611,7 @@
         }
 
         /* ── PRICING ── */
+        .pricing { }
         .pricing-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -919,8 +922,12 @@
         /* ── RESPONSIVE ── */
         .hero h1 { white-space: nowrap; }
         @media (max-width: 680px) {
-            .hero h1 { white-space: normal; }
-            .hero-word2 { display: block; }
+            .hero h1 { white-space: nowrap; font-size: clamp(1.3rem, 6.5vw, 2rem); }
+            .hero-btns { justify-content: center; }
+            .hero-eyebrow { font-size: 0.72rem; }
+        }
+        @media (max-width: 400px) {
+            .hero h1 { font-size: 6.2vw; }
         }
         @media (max-width: 900px) {
             .pricing-grid { grid-template-columns: 1fr; }
@@ -945,7 +952,7 @@
     <!-- HEADER -->
     <header>
         <div class="container header-container">
-            <a href="#" class="logo">Henryk<span> Mszyca</span></a>
+            <a href="#" class="logo">Henryk <span>Mszyca</span></a>
             <nav class="nav-links">
                 <a href="#about">O mnie</a>
                 <a href="#process">Proces</a>
@@ -983,8 +990,8 @@
                     <span class="dot"></span>
                     Dostępny na zlecenia
                 </div>
-                <h1><span class="hero-word1">Solidny</span> <span class="hero-word2">montaż,</span><br><span class="grad">zero ściemy</span></h1>
-                <p>Montuję materiały wideo dla social media — od surowych nagrań do gotowego filmu. <strong>Bez zbędnych efektów, gotowe do publikacji.</strong></p>
+                <h1>Solidny montaż,<br><span class="grad">zero ściemy</span></h1>
+                <p>Przekształcam surowe nagrania w gotowe wideo na social media. <b>Bez zbędnych efektów, do publikacji od zaraz.</b></p>
                 <div class="hero-btns">
                     <a href="#contact" class="btn-primary">Zleć montaż</a>
                     <a href="#portfolio" class="btn-outline">Zobacz prace</a>
@@ -1020,12 +1027,12 @@
                 <div class="process-step">
                     <div class="process-number">2</div>
                     <h3>Montaż</h3>
-                    <p>Dostajesz video w parę dni roboczych. Pilne zlecenia możliwe z dopłatą 50%.</p>
+                    <p>Dostajesz video w 2–3 dni robocze. Pilne zlecenia możliwe z dopłatą 50%.</p>
                 </div>
                 <div class="process-step">
                     <div class="process-number">3</div>
                     <h3>Poprawki</h3>
-                    <p>Poprawki wliczone w cenę. Zazwyczaj nie są potrzebne.</p>
+                    <p>1–2 rundy poprawek wliczone w cenę. Zazwyczaj nie są potrzebne.</p>
                 </div>
                 <div class="process-step">
                     <div class="process-number">4</div>
@@ -1272,12 +1279,12 @@
                     <div class="pricing-divider"></div>
                     <div class="pricing-price">
                         <span class="pricing-currency">zł</span>
-                        <span class="pricing-amount">800</span>
+                        <span class="pricing-amount">900</span>
                     </div>
                     <div class="pricing-period">/ miesiąc</div>
                     <p class="pricing-desc" style="margin-top:12px;">Dla marek które zaczynają z contentem video i chcą regularnej obecności.</p>
                     <ul class="pricing-features">
-                        <li><span class="pricing-check">✓</span><span><strong>4 rolki</strong> miesięcznie</span></li>
+                        <li><span class="pricing-check">✓</span><span><strong>5 rolek</strong> miesięcznie</span></li>
                         <li><span class="pricing-check">✓</span><span>Cięcia i montaż</span></li>
                         <li><span class="pricing-check">✓</span><span>Napisy</span></li>
                         <li><span class="pricing-check">✓</span><span>Muzyka royalty-free</span></li>
@@ -1297,12 +1304,12 @@
                     <div class="pricing-divider"></div>
                     <div class="pricing-price">
                         <span class="pricing-currency">zł</span>
-                        <span class="pricing-amount">1300</span>
+                        <span class="pricing-amount">1600</span>
                     </div>
                     <div class="pricing-period">/ miesiąc</div>
                     <p class="pricing-desc" style="margin-top:12px;">Dla marek które chcą żeby ich content wyglądał profesjonalnie i wyróżniał się.</p>
                     <ul class="pricing-features">
-                        <li><span class="pricing-check">✓</span><span><strong>8 rolek</strong> miesięcznie</span></li>
+                        <li><span class="pricing-check">✓</span><span><strong>9 rolek</strong> miesięcznie</span></li>
                         <li><span class="pricing-check">✓</span><span>Cięcia i montaż</span></li>
                         <li><span class="pricing-check">✓</span><span>Napisy</span></li>
                         <li><span class="pricing-check">✓</span><span>Muzyka royalty-free</span></li>
@@ -1321,7 +1328,7 @@
                     <div class="pricing-divider"></div>
                     <div class="pricing-price">
                         <span class="pricing-currency">zł</span>
-                        <span class="pricing-amount">2300</span>
+                        <span class="pricing-amount">2400</span>
                     </div>
                     <div class="pricing-period">/ miesiąc</div>
                     <p class="pricing-desc" style="margin-top:12px;">Dla marek które traktują video jako główny kanał sprzedażowy.</p>
@@ -1359,31 +1366,11 @@
             <div class="faq-container">
                 <div class="faq-item">
                     <button class="faq-question">
-                        <span>Jaki jest czas realizacji?</span>
-                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Shorts/Reels (do 90s): do dwóch dni od momentu otrzymania materiału.<br>
-                        Dłuższe formy (do 10 min): 3–5 dni roboczych.<br>
-                        Pilne zlecenia – możliwy ekspres (dopłata 50%).</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
                         <span>Jak dostarczyć nagrania?</span>
                         <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                     </button>
                     <div class="faq-answer">
                         <p>Najlepiej przez dyski w chmurze tj. Dysk Google, Mega.nz, Dropbox, lub strony tj. Swisstransfer.com i WeTransfer.com</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Ile rund poprawek wliczonych w cenę?</span>
-                        <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Standardowo 1–2 rundy poprawek są wliczone w cenę. Zazwyczaj nie są potrzebne, bo pracuję zgodnie z briefem. Kolejne rundy płatne indywidualnie.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -1571,4 +1558,3 @@
     </script>
 </body>
 </html>
-
