@@ -63,6 +63,7 @@
             color: var(--text);
             text-decoration: none;
             letter-spacing: -0.02em;
+            white-space: nowrap;
         }
         .logo span {
             background: linear-gradient(90deg, var(--accent), var(--accent2));
@@ -611,36 +612,47 @@
         }
 
         /* ── PRICING ── */
-        .pricing { }
+        /* padding-top = przestrzeń na badge featured karty */
         .pricing-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            /* minmax(0,1fr) gwarantuje 3 równe kolumny niezależnie od treści */
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 16px;
-            align-items: start;
+            align-items: stretch;   /* wszystkie karty tej samej wysokości */
+            padding-top: 24px;      /* miejsce na badge */
         }
+
+        /* Wszystkie karty — równa wysokość, brak marginu */
         .pricing-card {
             background: white;
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px 28px;
+            border-radius: 24px;
+            padding: 36px 30px 30px;
             position: relative;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: box-shadow 0.3s, transform 0.3s;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            overflow: visible;
         }
         .pricing-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 60px rgba(0,0,0,0.1);
         }
+
+        /* Featured: lekko uniesiona przez transform — nie wpływa na wysokość gridu */
         .pricing-card.featured {
             background: #0d0d1a;
             border-color: transparent;
-            transform: translateY(-14px);
+            transform: translateY(-12px);
             box-shadow: 0 32px 80px rgba(106,90,255,0.22), 0 0 0 1.5px rgba(106,90,255,0.3);
         }
         .pricing-card.featured:hover {
-            transform: translateY(-20px);
+            transform: translateY(-18px);
             box-shadow: 0 40px 100px rgba(106,90,255,0.28);
         }
+
         .pricing-badge {
             position: absolute;
             top: -14px; left: 50%;
@@ -652,67 +664,106 @@
             font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
-            padding: 5px 14px;
+            padding: 5px 16px;
             border-radius: 100px;
             white-space: nowrap;
         }
+
+        /* Nazwa planu — duże, skaluje się razem z kartą */
         .pricing-tier {
             font-family: 'Syne', sans-serif;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 18px;
-        }
-        .pricing-card.featured .pricing-tier { color: #a594ff; }
-        .pricing-divider {
-            width: 36px; height: 2px;
-            background: var(--border);
-            margin-bottom: 24px;
-        }
-        .pricing-card.featured .pricing-divider { background: rgba(106,90,255,0.4); }
-        .pricing-price {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-            margin-bottom: 4px;
-        }
-        .pricing-currency { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 600; color: var(--muted2); }
-        .pricing-amount {
-            font-family: 'Syne', sans-serif;
-            font-size: 50px;
+            /* karta = ~1/3 kontenera (max 1200px) minus paddingi ≈ 313px treści.
+               vw-based: przy 900px→ 2.8vw=25px, przy 1200px→ 2.8vw=33px, przy 1600px→ 2.8vw=45px→ capped 2.4rem=38px */
+            font-size: clamp(1.7rem, 2.8vw, 2.4rem);
             font-weight: 800;
             letter-spacing: -0.03em;
             line-height: 1;
             color: var(--text);
+            margin-bottom: 6px;
+            white-space: nowrap; /* nie łamie — ale przy overflow:visible nie ucina */
         }
-        .pricing-card.featured .pricing-amount { color: white; }
-        .pricing-card.featured .pricing-currency { color: #a594ff; }
-        .pricing-period { font-size: 12px; color: var(--muted); font-weight: 300; margin-bottom: 16px; }
-        .pricing-card.featured .pricing-period { color: #666688; }
-        .pricing-desc {
-            font-size: 12.5px;
-            color: var(--muted2);
-            line-height: 1.55;
-            margin-bottom: 24px;
+        .pricing-card.featured .pricing-tier {
+            background: linear-gradient(90deg, #a594ff, #d094ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Cena — pod tytułem (separator wizualny) */
+        .pricing-price {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px solid var(--border);
+        }
+        .pricing-card.featured .pricing-price { border-bottom-color: rgba(255,255,255,0.08); }
+
+        /* Cena — nad przyciskiem CTA */
+        .pricing-price-bottom {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            padding-top: 20px;
+            margin-top: auto;
+            border-top: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+        .pricing-card.featured .pricing-price-bottom { border-top-color: rgba(255,255,255,0.08); }
+
+        .pricing-currency {
+            font-family: 'Syne', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--muted);
+        }
+        .pricing-card.featured .pricing-currency { color: #7070a0; }
+        .pricing-amount {
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--muted2);
+        }
+        .pricing-card.featured .pricing-amount { color: #9898cc; }
+        .pricing-period {
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 300;
+            align-self: baseline;
+        }
+        .pricing-card.featured .pricing-period { color: #5a5a7a; }
+
+        .pricing-desc {
+            font-size: 13px;
+            color: var(--muted2);
+            line-height: 1.6;
+            margin-bottom: 24px;
             font-weight: 300;
         }
-        .pricing-card.featured .pricing-desc { color: #8888aa; border-bottom-color: rgba(255,255,255,0.07); }
-        .pricing-features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 11px; }
+        .pricing-card.featured .pricing-desc { color: #8888aa; }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-grow: 1;
+        }
         .pricing-features li {
             display: flex;
             align-items: flex-start;
             gap: 9px;
             font-size: 13px;
             color: var(--muted2);
-            line-height: 1.4;
+            line-height: 1.45;
         }
         .pricing-card.featured .pricing-features li { color: #8888aa; }
-        .pricing-features li strong { color: var(--text); font-weight: 500; }
+        .pricing-features li strong { color: var(--text); font-weight: 600; }
         .pricing-card.featured .pricing-features li strong { color: white; }
+
         .pricing-check {
             width: 18px; height: 18px;
             border-radius: 50%;
@@ -729,15 +780,16 @@
         .pricing-card.featured .pricing-check { background: rgba(106,90,255,0.2); color: #a594ff; }
         .pricing-features li.not { opacity: 0.35; }
         .pricing-features li.not .pricing-check { background: transparent; color: var(--muted); font-size: 10px; }
+
         .pricing-cta {
             display: block;
             width: 100%;
-            padding: 13px 20px;
+            padding: 14px 20px;
             border-radius: 12px;
             font-family: 'Syne', sans-serif;
-            font-size: 12.5px;
+            font-size: 13px;
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             text-align: center;
             cursor: pointer;
             text-decoration: none;
@@ -746,13 +798,14 @@
             color: var(--muted2);
             transition: all 0.25s;
         }
-        .pricing-cta:hover { border-color: rgba(0,0,0,0.15); color: var(--text); background: rgba(0,0,0,0.02); }
+        .pricing-cta:hover { border-color: rgba(0,0,0,0.15); color: var(--text); }
         .pricing-cta.primary {
             background: linear-gradient(90deg, var(--accent), var(--accent2));
             border-color: transparent;
             color: white;
         }
         .pricing-cta.primary:hover { box-shadow: 0 8px 32px rgba(106,90,255,0.4); opacity: 0.92; }
+
         .pricing-footer {
             text-align: center;
             margin-top: 40px;
@@ -767,6 +820,46 @@
         .pricing-footer span { display: flex; align-items: center; gap: 6px; }
         .pricing-footer .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); opacity: 0.4; }
         .pricing-footer .fine { opacity: 0.5; font-size: 11px; }
+
+        .pricing-custom {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 32px;
+            margin-bottom: 4px;
+            padding: 16px 28px;
+            background: rgba(106,90,255,0.05);
+            border: 1px solid rgba(106,90,255,0.12);
+            border-radius: 14px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .pricing-custom-icon {
+            color: var(--accent);
+            font-size: 13px;
+            flex-shrink: 0;
+            opacity: 0.7;
+        }
+        .pricing-custom p {
+            font-size: 13.5px;
+            color: var(--muted2);
+            line-height: 1.5;
+            font-weight: 400;
+            text-align: center;
+        }
+        .pricing-custom a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(106,90,255,0.3);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .pricing-custom a:hover {
+            color: var(--accent2);
+            border-bottom-color: var(--accent2);
+        }
 
         /* ── FAQ ── */
         .faq { background: white; }
@@ -930,7 +1023,7 @@
             .hero h1 { font-size: 6.2vw; }
         }
         @media (max-width: 900px) {
-            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; padding-top: 24px; }
             .pricing-card.featured { transform: none; }
             .contact-two-col { grid-template-columns: 1fr; gap: 40px; }
         }
@@ -1276,13 +1369,7 @@
                 <!-- BASIC -->
                 <div class="pricing-card">
                     <div class="pricing-tier">Basic</div>
-                    <div class="pricing-divider"></div>
-                    <div class="pricing-price">
-                        <span class="pricing-currency">zł</span>
-                        <span class="pricing-amount">900</span>
-                    </div>
-                    <div class="pricing-period">/ miesiąc</div>
-                    <p class="pricing-desc" style="margin-top:12px;">Dla marek które zaczynają z contentem video i chcą regularnej obecności.</p>
+                    <p class="pricing-desc">Dla marek które zaczynają z contentem video i chcą regularnej obecności.</p>
                     <ul class="pricing-features">
                         <li><span class="pricing-check">✓</span><span><strong>5 rolek</strong> miesięcznie</span></li>
                         <li><span class="pricing-check">✓</span><span>Cięcia i montaż</span></li>
@@ -1294,6 +1381,11 @@
                         <li class="not"><span class="pricing-check">–</span><span>Czyszczenie audio</span></li>
                         <li class="not"><span class="pricing-check">–</span><span>Priorytetowy kontakt</span></li>
                     </ul>
+                    <div class="pricing-price-bottom">
+                        <span class="pricing-currency">zł</span>
+                        <span class="pricing-amount">900</span>
+                        <span class="pricing-period">/ miesiąc</span>
+                    </div>
                     <a href="#contact" class="pricing-cta">Zacznijmy rozmawiać</a>
                 </div>
 
@@ -1301,13 +1393,7 @@
                 <div class="pricing-card featured">
                     <div class="pricing-badge">Najpopularniejszy</div>
                     <div class="pricing-tier">Standard</div>
-                    <div class="pricing-divider"></div>
-                    <div class="pricing-price">
-                        <span class="pricing-currency">zł</span>
-                        <span class="pricing-amount">1600</span>
-                    </div>
-                    <div class="pricing-period">/ miesiąc</div>
-                    <p class="pricing-desc" style="margin-top:12px;">Dla marek które chcą żeby ich content wyglądał profesjonalnie i wyróżniał się.</p>
+                    <p class="pricing-desc">Dla marek które chcą żeby ich content wyglądał profesjonalnie i wyróżniał się.</p>
                     <ul class="pricing-features">
                         <li><span class="pricing-check">✓</span><span><strong>9 rolek</strong> miesięcznie</span></li>
                         <li><span class="pricing-check">✓</span><span>Cięcia i montaż</span></li>
@@ -1319,19 +1405,18 @@
                         <li><span class="pricing-check">✓</span><span>Czyszczenie audio</span></li>
                         <li class="not"><span class="pricing-check">–</span><span>Priorytetowy kontakt</span></li>
                     </ul>
+                    <div class="pricing-price-bottom">
+                        <span class="pricing-currency">zł</span>
+                        <span class="pricing-amount">1600</span>
+                        <span class="pricing-period">/ miesiąc</span>
+                    </div>
                     <a href="#contact" class="pricing-cta primary">Zacznijmy rozmawiać</a>
                 </div>
 
                 <!-- PREMIUM -->
                 <div class="pricing-card">
                     <div class="pricing-tier">Premium</div>
-                    <div class="pricing-divider"></div>
-                    <div class="pricing-price">
-                        <span class="pricing-currency">zł</span>
-                        <span class="pricing-amount">2400</span>
-                    </div>
-                    <div class="pricing-period">/ miesiąc</div>
-                    <p class="pricing-desc" style="margin-top:12px;">Dla marek które traktują video jako główny kanał sprzedażowy.</p>
+                    <p class="pricing-desc">Dla marek które traktują video jako główny kanał sprzedażowy.</p>
                     <ul class="pricing-features">
                         <li><span class="pricing-check">✓</span><span><strong>13 rolek</strong> miesięcznie</span></li>
                         <li><span class="pricing-check">✓</span><span>Pełna postprodukcja</span></li>
@@ -1343,9 +1428,21 @@
                         <li><span class="pricing-check">✓</span><span>Czyszczenie audio + efekty</span></li>
                         <li><span class="pricing-check">✓</span><span>Priorytetowy kontakt</span></li>
                     </ul>
+                    <div class="pricing-price-bottom">
+                        <span class="pricing-currency">zł</span>
+                        <span class="pricing-amount">2400</span>
+                        <span class="pricing-period">/ miesiąc</span>
+                    </div>
                     <a href="#contact" class="pricing-cta">Zacznijmy rozmawiać</a>
                 </div>
             </div>
+
+            <!-- Custom offer note -->
+            <div class="pricing-custom">
+                <span class="pricing-custom-icon">✦</span>
+                <p>Żaden pakiet nie pasuje idealnie?<br><a href="#contact">Napisz do mnie</a> — dopasujemy zakres i budżet indywidualnie.</p>
+            </div>
+
             <div class="pricing-footer">
                 <span>✦ Umowa przy każdej współpracy</span>
                 <span class="sep"></span>
@@ -1461,7 +1558,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         // HAMBURGER
         const hamburger = document.getElementById('hamburger');
@@ -1551,7 +1648,7 @@
                 const target = document.querySelector(a.getAttribute('href'));
                 if (target) {
                     e.preventDefault();
-                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                    target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
         });
