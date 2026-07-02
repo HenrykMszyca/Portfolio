@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Henryk Mszyca - Montażysta Filmów</title>
+    <title>HEMS - video services</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link
@@ -428,6 +428,10 @@
         }
 
         /* ── PROCESS ── */
+        .process {
+            background: var(--surface);
+        }
+
         .process-steps {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -876,6 +880,7 @@
         }
 
         /* ── PRICING ── */
+
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1192,9 +1197,6 @@
         }
 
         /* ── FAQ ── */
-        .faq {
-            background: var(--surface);
-        }
 
         .faq-container {
             max-width: 860px;
@@ -1278,7 +1280,14 @@
             font-size: 0.95rem;
         }
 
+        .faq {
+            background: var(--surface);
+        }
+
         /* ── CONTACT ── */
+        .contact {
+        }
+
         .contact-section-label {
             display: flex;
             align-items: center;
@@ -1454,6 +1463,31 @@
             .hero-eyebrow {
                 font-size: 0.72rem;
             }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                align-items: center;
+                column-gap: 16px;
+                text-align: left;
+            }
+
+            .process-number {
+                margin-bottom: 0;
+            }
+
+            .process-step h3 {
+                margin-bottom: 0;
+            }
+
+            .process-step p {
+                grid-column: 1 / -1;
+                margin-top: 12px;
+            }
         }
 
         @media (max-width: 400px) {
@@ -1526,7 +1560,7 @@
             box-shadow: 0 4px 20px rgba(43, 45, 66, 0.05);
         }
 
-        section:not(.about):not(.skills):not(.portfolio):not(.faq) {
+        section:not(.portfolio):not(.process):not(.contact) {
             background-image: radial-gradient(ellipse at 50% 0%, rgba(239, 35, 60, 0.04) 0%, transparent 60%);
         }
 
@@ -1582,14 +1616,13 @@
             <img src="hems-logo.png" alt="hems" style="height: 20px; width: auto; display: block;">
             </a>
             <nav class="nav-links">
-                <a href="#about">O mnie</a>
-                <a href="#process">Proces</a>
-                <a href="#skills">Umiejętności</a>
                 <a href="#portfolio">Portfolio</a>
+                <a href="#testimonials">Opinie</a>
+                <a href="#process">Proces</a>
                 <span class="header-separator"></span>
                 <a href="#pricing">Oferta</a>
-                <a href="#faq">FAQ</a>
                 <a href="#contact">Kontakt</a>
+                <a href="#faq">FAQ</a>
             </nav>
             <button class="hamburger" id="hamburger">
                 <span></span><span></span><span></span>
@@ -1600,13 +1633,12 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <nav>
-            <a href="#about" class="mobile-link">O mnie</a>
-            <a href="#process" class="mobile-link">Proces</a>
-            <a href="#skills" class="mobile-link">Umiejętności</a>
             <a href="#portfolio" class="mobile-link">Portfolio</a>
+            <a href="#testimonials" class="mobile-link">Opinie</a>
+            <a href="#process" class="mobile-link">Proces</a>
             <a href="#pricing" class="mobile-link">Oferta</a>
-            <a href="#faq" class="mobile-link">FAQ</a>
             <a href="#contact" class="mobile-link">Kontakt</a>
+            <a href="#faq" class="mobile-link">FAQ</a>
         </nav>
     </div>
 
@@ -1619,7 +1651,7 @@
                     Dostępny na zlecenia
                 </div>
                 <h1>Solidny montaż,<br><span class="grad">zero ściemy</span></h1>
-                <p>Od surowych nagrań do gotowych rolek — <b>terminowo, bez stresu dla Twojego team'u.</b></p>
+                <p>Od surowych nagrań do gotowych rolek. <b>Terminowo, bez stresu dla Twojego zespołu.</b></p>
                 <div class="hero-btns">
                     <a href="#contact" class="btn-primary">Zleć montaż</a>
                     <a href="#portfolio" class="btn-outline">Zobacz prace</a>
@@ -1628,93 +1660,151 @@
         </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="about">
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="portfolio">
         <div class="container">
-            <div class="section-eyebrow">O mnie</div>
-            <h2 class="section-title">Kim jestem</h2>
-            <div class="about-card">
-                <p>Od 3 lat montuję wideo, od roku komercyjnie — skupiam się na solidnym warsztacie: <strong>czysty
-                        montaż, dobry pacing i storytelling bez zbędnych efektów.</strong></p>
-                <p>Specjalizuję się w krótkich formatach (Reels/Shorts) oraz dłuższych materiałach do 10 minut. Pracuję
-                    z materiałem dostarczonym przez klienta — <strong>od surowych nagrań do gotowego exportu pod
-                        platformę.</strong></p>
+            <div class="section-eyebrow">Portfolio</div>
+            <h2 class="section-title">Moje <span class="grad">prace</span></h2>
+            <p class="portfolio-desc">
+                Kliknij w kafelek, aby obejrzeć film. Użyj filtrów, aby zobaczyć konkretny typ projektu.</p>
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">Wszystkie</button>
+                <button class="filter-btn" data-filter="shorts">Shorts / Reels</button>
+                <button class="filter-btn" data-filter="long">Long-form</button>
+                <button class="filter-btn" data-filter="vfx">VFX</button>
             </div>
-        </div>
-    </section>
-
-    <!-- PROCESS -->
-    <section id="process">
-        <div class="container">
-            <div class="section-eyebrow">Proces</div>
-            <h2 class="section-title">Jak to <span class="grad">działa</span></h2>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="process-number">1</div>
-                    <h3>Brief</h3>
-                    <p>Wysyłasz materiał + wytyczne (długość, format, styl). Bardziej konkretnie, tym lepiej.</p>
+            <div class="videos-container">
+                <div class="video-card" data-video-index="5" data-category="shorts">
+                    <div class="thumbnail-container">
+                        <img src="klapki.png" alt="Klapki sterują umysłem!" class="thumbnail">
+                        <div class="play-overlay">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Klapki sterują umysłem!</h3>
+                        <p>Materiał sprzedażowy dla sklepu z odzieżą premium. Rolka osiągnęła 148.000 wyświetleń w
+                            tydzień bez promowania. </p>
+                    </div>
                 </div>
-                <div class="process-step">
-                    <div class="process-number">2</div>
-                    <h3>Montaż</h3>
-                    <p>Od 2 do 5 dni roboczych, zależnie od pakietu. Pilne zlecenia możliwe po uzgodnieniu.</p>
+                <a href="https://www.instagram.com/p/DRZ7aA_jm4E/" target="_blank" class="video-card"
+                    data-category="shorts">
+                    <div class="thumbnail-container">
+                        <img src="swiry.jpg" alt="Relacja ze ŚWiRowania" class="thumbnail">
+                        <div class="play-overlay">
+                            <div class="play-icon"><i class="fas fa-external-link-alt"></i></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Relacja ze ŚWiRowania</h3>
+                        <p>Śląża w 20 sekund – adrenalinowy przejazd! Dynamiczna relacja z rowerowego spotkania.</p>
+                        <p class="external-ig-link"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/p/DM45I4Ruuve/" target="_blank" class="video-card"
+                    data-category="shorts">
+                    <div class="thumbnail-container">
+                        <img src="niewyszlo.jpg" alt="Koniec projektu rowerowego" class="thumbnail">
+                        <div class="play-overlay">
+                            <div class="play-icon"><i class="fas fa-external-link-alt"></i></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Koniec projektu rowerowego</h3>
+                        <p>Dlaczego ten projekt upadł? Rolka zapraszająca do obejrzenia pełnego filmu.</p>
+                        <p class="external-ig-link"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
+                    </div>
+                </a>
+                <div class="video-card" data-video-index="4" data-category="vfx">
+                    <div class="thumbnail-container">
+                        <img src="VFX.jpg" alt="Przykład VFX: vulcano text" class="thumbnail">
+                        <div class="play-overlay">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Przykład VFX: vulcano text</h3>
+                        <p>Krótka prezentacja umiejętności VFX w DaVinci Fusion – ożywiamy tekst jak lawę!</p>
+                    </div>
                 </div>
-                <div class="process-step">
-                    <div class="process-number">3</div>
-                    <h3>Poprawki</h3>
-                    <p>Poprawki wliczone w cenę, zależnie od pakietu. Zazwyczaj nie są potrzebne.</p>
+                <div class="video-card" data-video-index="8" data-category="long">
+                    <div class="thumbnail-container">
+                        <img src="miniatura_rezi.png" alt="Rezi warriors 2026" class="thumbnail">
+                        <div class="play-overlay">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Rezi warriors 2026!</h3>
+                        <p>Wciągające streszczenie ostatniej imprezy MTB DIRT w Strzegomiu! Sztuczki rowerowe na poziomie światowym!</p>
+                    </div>
                 </div>
-                <div class="process-step">
-                    <div class="process-number">4</div>
-                    <h3>Final</h3>
-                    <p>Export w formatach odpowiednich do platformy. Gotowe do publikacji.</p>
+                <div class="video-card" data-video-index="0" data-category="shorts">
+                    <div class="thumbnail-container">
+                        <img src="wodor1.png" alt="Wizyta w salonie beauty" class="thumbnail">
+                        <div class="play-overlay">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Wizyta w salonie beauty</h3>
+                        <p>Ekskluzywna relacja z wizyty w salonie – inspiracje i profesjonalne zabiegi.</p>
+                    </div>
+                </div>
+                <div class="video-card" data-video-index="6" data-category="shorts">
+                    <div class="thumbnail-container">
+                        <img src="zdrowotka.png" alt="Sklep zielarski" class="thumbnail">
+                        <div class="play-overlay">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Sklep zielarski w twojej okolicy!</h3>
+                        <p>Materiał pod Meta Ads, promujący lokalny sklep zielarski.</p>
+                    </div>
+                </div>
+                <a href="https://www.instagram.com/reel/DPWkN0fDitU/" target="_blank" class="video-card"
+                    data-category="shorts">
+                    <div class="thumbnail-container">
+                        <img src="agrest.png" alt="Ale styl!" class="thumbnail">
+                        <div class="play-overlay">
+                            <div class="play-icon"><i class="fas fa-external-link-alt"></i></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Ale styl!</h3>
+                        <p>Materiał z najlepszymi liniami przejazdów uczestników spotkania BMX.</p>
+                        <p class="external-ig-link"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
+                    </div>
+                </a>
+                <div class="video-card" data-video-index="3" data-category="long">
+                    <div class="thumbnail-container">
+                        <img src="bmx.jpg" alt="Relacja z contestu BMX freestyle" class="thumbnail">
+                        <div class="play-overlay">
+                            <div class="play-icon"><i class="fas fa-play"></i></div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Relacja z contestu BMX freestyle</h3>
+                        <p>BMX Freestyle na Popowicach – emocje do ostatniego triku!</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- SKILLS -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-eyebrow">Umiejętności</div>
-            <h2 class="section-title">Moje <span class="grad">kompetencje</span></h2>
-            <div class="skills-container">
-                <div class="skill-column">
-                    <div class="skill-column-header">
-                        <div class="skill-icon"><i class="fas fa-film"></i></div>
-                        <h3>Montaż</h3>
+            <!-- Video Modal -->
+            <div id="videoModal" class="video-modal">
+                <div class="modal-content">
+                    <button class="close-modal">&times;</button>
+                    <div class="video-wrapper">
+                        <div class="video-iframe-container" id="videoContainer"></div>
                     </div>
-                    <ul class="skill-list">
-                        <li>Krótkie formaty (Reels/Shorts 15–90s)</li>
-                        <li>Dłuższe formy wideo (do 10 min)</li>
-                        <li>VFX & korekta barwna/dźwiękowa</li>
-                        <li>Sound design i muzyka</li>
-                    </ul>
                 </div>
-                <div class="skill-column">
-                    <div class="skill-column-header">
-                        <div class="skill-icon"><i class="fas fa-scissors"></i></div>
-                        <h3>Struktura montażu</h3>
-                    </div>
-                    <ul class="skill-list">
-                        <li>Storytelling</li>
-                        <li>Dynamika narracji</li>
-                        <li>Optymalizacja pod platformę</li>
-                        <li>Hook w pierwszych 3 sekundach</li>
-                    </ul>
-                </div>
-                <div class="skill-column">
-                    <div class="skill-column-header">
-                        <div class="skill-icon"><i class="fas fa-cogs"></i></div>
-                        <h3>Narzędzia</h3>
-                    </div>
-                    <ul class="skill-list">
-                        <li>DaVinci Resolve Studio</li>
-                        <li>After Effects</li>
-                        <li>Fusion (VFX)</li>
-                        <li>Fairlight (audio post)</li>
-                    </ul>
-                </div>
+            </div>
+
+            <div class="portfolio-footer">
+                <p>Wszystkie wideo hostowane są na
+                    Bunny Stream i Instagram dla płynnego odtwarzania.</p>
+                <a href="#contact" class="btn-primary">Masz podobny projekt? Porozmawiajmy</a>
             </div>
         </div>
     </section>
@@ -1775,151 +1865,32 @@
         </div>
     </section>
 
-    <!-- PORTFOLIO -->
-    <section id="portfolio" class="portfolio">
+    <!-- PROCESS -->
+    <section id="process" class="process">
         <div class="container">
-            <div class="section-eyebrow">Portfolio</div>
-            <h2 class="section-title">Moje <span class="grad">prace</span></h2>
-            <p class="portfolio-desc">
-                Kliknij w kafelek, aby obejrzeć film. Użyj filtrów, aby zobaczyć konkretny typ projektu.</p>
-            <div class="portfolio-filters">
-                <button class="filter-btn active" data-filter="all">Wszystkie</button>
-                <button class="filter-btn" data-filter="shorts">Shorts / Reels</button>
-                <button class="filter-btn" data-filter="long">Long-form</button>
-                <button class="filter-btn" data-filter="vfx">VFX</button>
-            </div>
-            <div class="videos-container">
-                <div class="video-card" data-video-index="5" data-category="shorts">
-                    <div class="thumbnail-container">
-                        <img src="klapki.png" alt="Klapki sterują umysłem!" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon"><i class="fas fa-play"></i></div>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h3>Klapki sterują umysłem!</h3>
-                        <p>Materiał sprzedażowy dla sklepu z odzieżą premium. Rolka osiągnęła 148.000 wyświetleń w
-                            tydzień bez promowania. </p>
-                    </div>
+            <div class="section-eyebrow">Proces</div>
+            <h2 class="section-title">Jak to <span class="grad">działa</span></h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <h3>Brief</h3>
+                    <p>Wysyłasz materiał + wytyczne (długość, format, styl). Bardziej konkretnie, tym lepiej.</p>
                 </div>
-                <a href="https://www.instagram.com/reel/DTqKMh2Ds8G/" target="_blank" class="video-card"
-                    data-category="shorts">
-                    <div class="thumbnail-container">
-                        <img src="swiry.jpg" alt="Relacja ze ŚWiRowania" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon"><i class="fas fa-external-link-alt"></i></div>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h3>Relacja ze ŚWiRowania</h3>
-                        <p>Śląża w 20 sekund – adrenalinowy przejazd! Dynamiczna relacja z rowerowego spotkania.</p>
-                        <p class="external-ig-link"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/p/DM45I4Ruuve/" target="_blank" class="video-card"
-                    data-category="shorts">
-                    <div class="thumbnail-container">
-                        <img src="niewyszlo.jpg" alt="Koniec projektu rowerowego" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon"><i class="fas fa-external-link-alt"></i></div>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h3>Koniec projektu rowerowego</h3>
-                        <p>Dlaczego ten projekt upadł? Rolka zapraszająca do obejrzenia pełnego filmu.</p>
-                        <p class="external-ig-link"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
-                    </div>
-                </a>
-                <div class="video-card" data-video-index="4" data-category="vfx">
-                    <div class="thumbnail-container">
-                        <img src="VFX.jpg" alt="Przykład VFX: vulcano text" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon"><i class="fas fa-play"></i></div>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h3>Przykład VFX: vulcano text</h3>
-                        <p>Krótka prezentacja umiejętności VFX w DaVinci Fusion – ożywiamy tekst jak lawę!</p>
-                    </div>
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <h3>Montaż</h3>
+                    <p>Od 2 do 5 dni roboczych, zależnie od pakietu. Pilne zlecenia możliwe po uzgodnieniu.</p>
                 </div>
-                <div class="video-card" data-video-index="3" data-category="long">
-                    <div class="thumbnail-container">
-                        <img src="bmx.jpg" alt="Relacja z contestu BMX freestyle" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon"><i class="fas fa-play"></i></div>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h3>Relacja z contestu BMX freestyle</h3>
-                        <p>BMX Freestyle na Popowicach – emocje do ostatniego triku!</p>
-                    </div>
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <h3>Poprawki</h3>
+                    <p>Poprawki wliczone w cenę, zależnie od pakietu. Zazwyczaj nie są potrzebne.</p>
                 </div>
-                <div class="video-card" data-video-index="0" data-category="shorts">
-                    <div class="thumbnail-container">
-                        <img src="wodor1.png" alt="Wizyta w salonie beauty" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon"><i class="fas fa-play"></i></div>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h3>Wizyta w salonie beauty</h3>
-                        <p>Ekskluzywna relacja z wizyty w salonie – inspiracje i profesjonalne zabiegi.</p>
-                    </div>
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <h3>Final</h3>
+                    <p>Export w formatach odpowiednich do platformy. Gotowe do publikacji.</p>
                 </div>
-                <div class="video-card" data-video-index="6" data-category="shorts">
-                    <div class="thumbnail-container">
-                        <img src="zdrowotka.png" alt="Sklep zielarski" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon"><i class="fas fa-play"></i></div>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h3>Sklep zielarski w twojej okolicy!</h3>
-                        <p>Materiał pod Meta Ads, promujący lokalny sklep zielarski.</p>
-                    </div>
-                </div>
-                <a href="https://www.instagram.com/reel/DPWkN0fDitU/" target="_blank" class="video-card"
-                    data-category="shorts">
-                    <div class="thumbnail-container">
-                        <img src="agrest.png" alt="Ale styl!" class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon"><i class="fas fa-external-link-alt"></i></div>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h3>Ale styl!</h3>
-                        <p>Materiał z najlepszymi liniami przejazdów uczestników spotkania BMX.</p>
-                        <p class="external-ig-link"><i class="fab fa-instagram"></i> Otwórz na Instagramie</p>
-                    </div>
-                </a>
-                <div class="video-card" data-video-index="8" data-category="shorts">
-                    <div class="thumbnail-container">
-                        <img src="wodor2.jpg" alt="Z wodorem po Polsce..." class="thumbnail">
-                        <div class="play-overlay">
-                            <div class="play-icon"><i class="fas fa-play"></i></div>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h3>Z wodorem po Polsce...</h3>
-                        <p>Rolka promująca nowoczesne technologie oczyszczania wodorem!</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Video Modal -->
-            <div id="videoModal" class="video-modal">
-                <div class="modal-content">
-                    <button class="close-modal">&times;</button>
-                    <div class="video-wrapper">
-                        <div class="video-iframe-container" id="videoContainer"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="portfolio-footer">
-                <p>Wszystkie wideo hostowane są na
-                    Bunny Stream i Instagram dla płynnego odtwarzania.</p>
-                <a href="#contact" class="btn-primary">Masz podobny projekt? Porozmawiajmy</a>
             </div>
         </div>
     </section>
@@ -1928,7 +1899,7 @@
     <section id="pricing" class="pricing">
         <div class="container">
             <div class="section-eyebrow">Oferta</div>
-            <h2 class="section-title">Montaż który <span class="grad">sprzedaje</span></h2>
+            <h2 class="section-title">Jakość, którą </span><span class="grad">widać</span></h2>
             <div class="pricing-grid">
 
                 <!-- BASIC -->
@@ -1960,7 +1931,7 @@
                 <div class="pricing-card featured">
                     <div class="pricing-badge">Najpopularniejszy</div>
                     <div class="pricing-tier">Standard</div>
-                    <p class="pricing-desc">Perfekcyjne dla marek z aktywą strategią marketingową, chcących
+                    <p class="pricing-desc">Perfekcyjne dla marek z aktywną strategią marketingową, chcących
                         wyróżnienia oraz profesjonalnego wyglądu.</p>
                     <ul class="pricing-features">
                         <li><span class="pricing-check">✓</span><span><strong>9 rolek</strong> miesięcznie</span>
@@ -2061,10 +2032,10 @@
                     <div class="faq-answer">
                         <p>Nie, poza montażem mogę również nagrać każdego rodzaju materiał na terenie Wrocławia, gminy Kobierzyce oraz Sobótki. Pracuje na sprzęcie:</p>
                         <ul>
-                            <li>Kamera: Blackmagic Pocket Cinema Camera 6K PRO</li>
-                            <li>obiektywy: Canon 16-35mm f4 IS USM</li>
+                            <li>Kamera: Blackmagic Pocket Cinema Camera 6K PRO, GoPro hero 10</li>
+                            <li>Obiektywy: Canon 16-35mm f4 IS USM</li>
                             <li>Mikrofony: Rode videomic NTG</li>
-                            <li>oraz wiele akcesoriów tj. akumulatory, mattebox, statywy, lampy, gopro, itd.</li>
+                            <li>Oraz wiele akcesoriów tj. lampy, statywy, gimbal, itd.</li>
                         </ul>
                         <p style="margin-top:8px;">Szczegóły do uzgodnienia.</p>
                     </div>
@@ -2079,11 +2050,18 @@
                     </div>
                 </div>
             </div>
+
+            <div class="pricing-custom">
+                <span class="pricing-custom-icon">✦</span>
+                <p>Masz dodatkowe pytania?<br><a href="#contact">Napisz do mnie</a> — odpowiem tak szybko, jak
+                    się da.</p>
+            </div>
         </div>
     </section>
 
+
     <!-- CONTACT -->
-    <section id="contact">
+    <section id="contact" class="contact">
         <div class="container">
             <div class="contact-section-label">Kontakt</div>
             <h2 class="contact-section-title">Rozpocznij <span class="grad">projekt</span></h2>
@@ -2163,7 +2141,7 @@
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/a4b9c9c8-9cdc-49f4-aba4-893a6a4c319c" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
             `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/5e7524ce-92cb-455b-8ca5-acb759015b0b?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`,
             null,
-            `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/822d7212-5eed-41d3-b14d-2a4c2f88e216?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`
+            `<div style="position:relative;padding-top:56.25%;"><iframe src="https://player.mediadelivery.net/embed/558829/02586f57-3e53-4d6c-a390-2e7c5d4d3bb7?autoplay=true&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>`
         ];
 
         const videoModal = document.getElementById('videoModal');
@@ -2232,5 +2210,4 @@
         });
     </script>
 </body>
-
 </html>
